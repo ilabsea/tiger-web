@@ -37,6 +37,7 @@ gem 'bootstrap'
 gem 'jquery-rails'
 gem 'breadcrumbs_on_rails'
 gem 'cancancan'
+gem 'will_paginate-bootstrap'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

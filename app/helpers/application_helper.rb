@@ -10,4 +10,5 @@ module ApplicationHelper
       return "info"
     end
   end
+
 end

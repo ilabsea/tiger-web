@@ -7,11 +7,12 @@
   </div>
 
   <div class="row">
-    <table class="table table-striped">
-      <thead>
+    <table class="table">
+      <thead class="thead-light">
         <tr>
           <th>Email</th>
           <th>Role</th>
+          <th>Status</th>
           <th></th>
           <th></th>
         </tr>
@@ -22,11 +23,21 @@
           <tr>
             <td><%= user.email %></td>
             <td><%= user.role.titleize %></td>
+            <td><%= user.status %></td>
             <td><%= link_to 'Edit', edit_user_path(user) %></td>
             <td><%= link_to 'Delete', user_path(user), method: :delete %></td>
           </tr>
         <% end %>
       </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="5">
+            <%= will_paginate @users, renderer: BootstrapPagination::Rails, bootstrap: 3, class: 'justify-content-end' %>
+          </td>
+        </tr>
+      </tfoot>
     </table>
+
+
   </div>
 </div>

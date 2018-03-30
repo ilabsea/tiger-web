@@ -6,7 +6,7 @@ class UsersController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @users = User.all_except(current_user)
+    @users = User.all_except(current_user).paginate(:page => params[:page])
   end
 
   def show
@@ -48,7 +48,7 @@ class UsersController < ApplicationController
 
   def destroy
     @user = User.find(params[:id])
-    if @user.destroy
+    if @user.soft_delete
       redirect_to users_path, notice: "Successfully deleted User."
     else
       redirect_to users_path, alert: "Failed to deleted User."

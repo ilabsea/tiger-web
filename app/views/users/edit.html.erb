@@ -28,7 +28,7 @@
         <%= f.label :role %>
       </div>
       <div class="col-8">
-        <%= f.select(:role, User.normal_roles.keys.map {|role| [role.titleize,role]}, {}, { :class => 'form-control' }) %>
+        <%= f.select(:role, User.roles.keys.map {|role| [role.titleize,role]}, {}, { :class => 'form-control' }) %>
       </div>
     </div>
 
