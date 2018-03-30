@@ -1,0 +1,32 @@
+<div class="col-12">
+  <div class="row">
+    <div class="col-auto mr-auto">
+      <h5>List of users</h5>
+    </div>
+    <div class="col-auto"><%= link_to 'New user', new_user_path, class: 'btn btn-primary'%></div>
+  </div>
+
+  <div class="row">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Email</th>
+          <th>Role</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @users.each do |user| %>
+          <tr>
+            <td><%= user.email %></td>
+            <td><%= user.role.titleize %></td>
+            <td><%= link_to 'Edit', edit_user_path(user) %></td>
+            <td><%= link_to 'Delete', user_path(user), method: :delete %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

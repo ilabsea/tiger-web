@@ -1,0 +1,12 @@
+<div class="row justify-content-md-center">
+  <% flash.each do |key, value| %>
+    <div class="col-5 alert alert-<%= alert_class_for(key) %>" role="alert">
+      <a href="#" data-dismiss="alert" class="close">×</a>
+      <ul>
+        <li>
+          <%= value %>
+        </li>
+      </ul>
+    </div>
+  <% end %>
+</div>
