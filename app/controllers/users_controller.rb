@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  add_breadcrumb 'Users', :users_path, only: [:new, :edit]
+  add_breadcrumb 'Users', :users_path, only: [:new, :edit, :update, :create]
 
   before_action :authenticate_user!
 
@@ -19,21 +19,24 @@ class UsersController < ApplicationController
   end
 
   def update
+    add_breadcrumb 'Edit user'
     @user = User.find(params[:id])
-    if (user_params[:password].blank? && @user.update_without_password(user_params)) || user.update(user_params)
+    if (user_params[:password].blank? && user_params[:password_confirmation].blank? &&
+      @user.update_without_password(user_params)) || @user.update(user_params)
       redirect_to users_path, notice: "Successfully updated User."
     else
-      flash.now[:alert] = 'Failed to update users'
+      flash.now[:notice] = 'Failed to update users'
       render 'edit'
     end
   end
 
   def create
+    add_breadcrumb 'New user'
     @user = User.new(user_params)
     if @user.save
       redirect_to users_path, notice: 'Successfully created User.'
     else
-      flash.now[:alert] = 'Failed to save user'
+      flash.now[:notice] = 'Failed to save user'
       render 'new'
     end
   end
