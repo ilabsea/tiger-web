@@ -1,0 +1,21 @@
+default: &default
+  adapter: mysql2
+  encoding: utf8
+  pool: 5
+  username: root
+  password:
+
+
+development:
+  <<: *default
+  database: tiger_development
+
+test:
+  <<: *default
+  database: tiger_test
+
+production:
+  <<: *default
+  database: tiger
+  username: root
+  password: <%= ENV['CDC_DATABASE_PASSWORD'] %>

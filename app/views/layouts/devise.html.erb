@@ -9,11 +9,12 @@
   </head>
 
   <body>
-    <%= render 'layouts/header' %>
+
     <div class="container">
-      <ol class="breadcrumb">
-        <%= render_breadcrumbs :tag => :li, :separator => " / " %>
-      </ol>
+      <div class="row justify-content-md-center bg-white border-bottom box-shadow">
+        <h2>Tiger</h2>
+      </div>
+      <%= render 'layouts/messages' %>
       <%= yield %>
     </div>
   </body>
