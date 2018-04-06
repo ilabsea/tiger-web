@@ -1,0 +1,62 @@
+<div class="col-8">
+  <h5>New story</h5>
+  <%= form_for @story do |f| %>
+    <% if @story.errors.full_messages.length > 0 %>
+      <div class="alert alert-danger" role="alert">
+        <% flash.each do |key, value| %>
+          <%= content_tag :h5, value %>
+        <% end %>
+        <ul>
+          <% @story.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="form-group row">
+      <div class="col-4 col-form-label">
+        <%= f.label :title %>
+      </div>
+      <div class="col-8">
+        <%= f.text_field :title, autofocus: true, class: 'form-control' %>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <div class="col-4 col-form-label">
+        <%= f.label :description %>
+      </div>
+      <div class="col-8">
+        <%= f.text_field :description, class: 'form-control' %>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <div class="col-4 col-form-label">
+        <%= f.label :tag %>
+      </div>
+      <div class="col-8">
+
+        <%= f.fields_for :tags, @story.tags.build do |tags_fields| %>
+            <%= tags_fields.text_field :title, 'data-role' => 'tagsinput', class: 'form-control'  %>
+        <% end %>
+        <%#= f.text_field :tags, 'data-role' => 'tagsinput', class: 'form-control' %>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <div class="col-4 col-form-label">
+        <%= f.label :image %>
+      </div>
+      <div class="col-8">
+        <%= f.file_field :image, class: 'form-control-file' %>
+      </div>
+    </div>
+
+
+    <div class="row justify-content-end">
+      <%= f.submit "Save", class: 'btn btn-primary' %>
+    </div>
+  <% end %>
+</div>

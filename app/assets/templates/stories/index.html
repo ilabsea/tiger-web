@@ -1,0 +1,47 @@
+<div class="col-12">
+  <div class="row">
+    <div class="col-auto mr-auto">
+      <div ng-show="stories.length == 0" >
+        <h5 class="text-danger">No Story</h5>
+      </div>
+
+      <div ng-show="stories.length > 0" >
+        <h5>List of stories</h5>
+      </div>
+    </div>
+
+    <div class="col-auto">
+      <button ng-click="new()" class="btn btn-primary">New Story</button>
+    </div>
+  </div>
+
+  <table class="table">
+    <thead class="thead-light">
+      <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Tags</th>
+        <th>Image</th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr ng-repeat="story in stories">
+        <td>{{story.title}}</td>
+        <td>{{story.description}}</td>
+        <td>
+          <span ng-repeat="tag in story.tags" >
+            <span class="badge badge-info">{{tag.title}}</span>
+          </span>
+        </td>
+        <td>{{ story.image }}</td>
+        <td>
+          <a href="/stories/{{story.id}}">Show</a> |
+          <a href="/stories/{{story.id}}/edit">Edit</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>

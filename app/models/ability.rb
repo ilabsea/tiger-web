@@ -8,7 +8,7 @@ class Ability
     if user.admin?
       can :manage, :all
     else
-      can :manage, :story
+      can :manage, Story
     end
 
     # The first argument to `can` is the action you are giving the user

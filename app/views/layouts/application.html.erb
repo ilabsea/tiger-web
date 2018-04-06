@@ -1,20 +1,21 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="Tiger">
   <head>
     <title>Tiger</title>
     <%= csrf_meta_tags %>
-
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag    'application', media: 'all' %>
   </head>
 
-  <body>
+  <body ng-controller="MainCtrl">
     <%= render 'layouts/header' %>
     <div class="container">
       <ol class="breadcrumb">
         <%= render_breadcrumbs :tag => :li, :separator => " / " %>
       </ol>
-      <%= yield %>
+      <ng-view></ng-view>
+
     </div>
+
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </body>
 </html>

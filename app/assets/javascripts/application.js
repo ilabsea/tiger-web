@@ -12,6 +12,10 @@
 //
 //= require jquery
 //= require bootstrap
-//= require jquery_ujs
-//= require turbolinks
-//= require_tree .
+//= require bootstrap-tagsinput
+//= require angular
+//= require angular-resource
+//= require angular-route
+//= require ng-tags-input
+//= require ./angular/app
+//= require_tree ./angular
