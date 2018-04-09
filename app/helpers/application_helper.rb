@@ -1,14 +1,14 @@
-module ApplicationHelper
+# frozen_string_literal: true
 
+module ApplicationHelper
   def alert_class_for(key)
     case key
-    when "notice"
-      return "success"
-    when "alert"
-      return "danger"
+    when 'notice'
+      'success'
+    when 'alert'
+      'danger'
     else
-      return "info"
+      'info'
     end
   end
-
 end

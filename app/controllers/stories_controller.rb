@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class StoriesController < ApplicationController
-  add_breadcrumb 'Stories', :users_path, only: [:new, :edit, :update, :create]
+  add_breadcrumb 'Stories', :users_path, only: %i[new edit update create]
   before_action :authenticate_user!
   load_and_authorize_resource
 
@@ -7,7 +9,7 @@ class StoriesController < ApplicationController
 
   def index
     @stories = Story.all
-    respond_with @stories.to_json(:include => :tags)
+    respond_with @stories.to_json(include: :tags)
   end
 
   def new
@@ -23,21 +25,15 @@ class StoriesController < ApplicationController
     end
   end
 
-  def edit
+  def edit; end
 
-  end
+  def update; end
 
-  def update
-
-  end
-
-  def destroy
-
-  end
+  def destroy; end
 
   private
+
   def story_params
     params.require(:story).permit(:title, :description, :image, tags: [], tags_attributes: [:title])
   end
-
 end

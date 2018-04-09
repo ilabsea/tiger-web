@@ -1,12 +1,14 @@
+# frozen_string_literal: true
+
 class UsersController < ApplicationController
-  add_breadcrumb 'Users', :users_path, only: [:new, :edit, :update, :create]
+  add_breadcrumb 'Users', :users_path, only: %i[new edit update create]
 
   before_action :authenticate_user!
 
   load_and_authorize_resource
 
   def index
-    @users = User.all_except(current_user).paginate(:page => params[:page])
+    @users = User.all_except(current_user).paginate(page: params[:page])
   end
 
   def show
@@ -23,7 +25,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     if (user_params[:password].blank? && user_params[:password_confirmation].blank? &&
       @user.update_without_password(user_params)) || @user.update(user_params)
-      redirect_to users_path, notice: "Successfully updated User."
+      redirect_to users_path, notice: 'Successfully updated User.'
     else
       flash.now[:notice] = 'Failed to update users'
       render 'edit'
@@ -49,13 +51,14 @@ class UsersController < ApplicationController
   def destroy
     @user = User.find(params[:id])
     if @user.soft_delete
-      redirect_to users_path, notice: "Successfully deleted User."
+      redirect_to users_path, notice: 'Successfully deleted User.'
     else
-      redirect_to users_path, alert: "Failed to deleted User."
+      redirect_to users_path, alert: 'Failed to deleted User.'
     end
   end
 
   private
+
   def user_params
     params.require(:user).permit(:email, :password, :password_confirmation, :role)
   end
