@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: users
@@ -38,6 +37,10 @@ class User < ApplicationRecord
 
   validates :authentication_token, uniqueness: true
 
+  before_create :regenerate_authentication_token!
+
+  validates :authentication_token, uniqueness: true
+
   def set_default_role
     self.role ||= :publisher
   end
@@ -58,4 +61,10 @@ class User < ApplicationRecord
     self.authentication_token = Devise.friendly_token
     self.token_expired_date = Time.zone.now
   end
+
+  def regenerate_authentication_token!
+    self.authentication_token = Devise.friendly_token
+    self.token_expired_date = Time.zone.now
+  end
+
 end
