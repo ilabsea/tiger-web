@@ -41,7 +41,11 @@ GEM
     addressable (2.5.2)
       public_suffix (>= 2.0.2, < 4.0)
     angularjs-rails (1.6.8)
+    annotate (2.7.2)
+      activerecord (>= 3.2, < 6.0)
+      rake (>= 10.4, < 13.0)
     arel (8.0.0)
+    ast (2.4.0)
     autoprefixer-rails (8.2.0)
       execjs
     bcrypt (3.1.11)
@@ -83,10 +87,15 @@ GEM
       responders
       warden (~> 1.2.3)
     diff-lcs (1.3)
+    dotenv (2.2.1)
+    dotenv-rails (2.2.1)
+      dotenv (= 2.2.1)
+      railties (>= 3.2, < 5.2)
     erubi (1.7.1)
     execjs (2.7.0)
     factory_bot (4.8.2)
       activesupport (>= 3.0.0)
+    ffaker (2.8.1)
     ffi (1.9.23)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
@@ -118,7 +127,11 @@ GEM
     nokogiri (1.8.2)
       mini_portile2 (~> 2.3.0)
     orm_adapter (0.5.0)
+    parallel (1.12.1)
+    parser (2.5.0.5)
+      ast (~> 2.4.0)
     popper_js (1.12.9)
+    powerpack (0.1.1)
     pry (0.11.3)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
@@ -153,6 +166,7 @@ GEM
       method_source
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
+    rainbow (3.0.0)
     rake (12.3.1)
     rb-fsevent (0.10.3)
     rb-inotify (0.9.10)
@@ -177,6 +191,14 @@ GEM
       rspec-mocks (~> 3.7.0)
       rspec-support (~> 3.7.0)
     rspec-support (3.7.1)
+    rubocop (0.54.0)
+      parallel (~> 1.10)
+      parser (>= 2.5)
+      powerpack (~> 0.1)
+      rainbow (>= 2.2.2, < 4.0)
+      ruby-progressbar (~> 1.7)
+      unicode-display_width (~> 1.0, >= 1.0.1)
+    ruby-progressbar (1.9.0)
     ruby_dep (1.5.0)
     rubyzip (1.2.1)
     sass (3.5.6)
@@ -219,6 +241,7 @@ GEM
       thread_safe (~> 0.1)
     uglifier (4.1.8)
       execjs (>= 0.3.0, < 3)
+    unicode-display_width (1.3.0)
     warden (1.2.7)
       rack (>= 1.0)
     web-console (3.5.1)
@@ -240,6 +263,7 @@ PLATFORMS
 
 DEPENDENCIES
   angularjs-rails
+  annotate (~> 2.7.2)
   bootstrap
   bootstrap-tagsinput-rails
   breadcrumbs_on_rails
@@ -247,9 +271,11 @@ DEPENDENCIES
   cancancan
   capybara (~> 2.13)
   coffee-rails (~> 4.2)
-  database_cleaner
+  database_cleaner (~> 1.6.2)
   devise
-  factory_bot
+  dotenv-rails (~> 2.2.1)
+  factory_bot (~> 4.8.2)
+  ffaker (~> 2.8.0)
   jbuilder (~> 2.5)
   jquery-rails
   listen (>= 3.0.5, < 3.2)
@@ -259,9 +285,10 @@ DEPENDENCIES
   puma (~> 3.7)
   rails (~> 5.1.5)
   rspec-rails
+  rubocop (~> 0.54.0)
   sass-rails (~> 5.0)
   selenium-webdriver
-  shoulda-matchers
+  shoulda-matchers (~> 3.1.2)
   spring
   spring-watcher-listen (~> 2.0.0)
   strip_attributes

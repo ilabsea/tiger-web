@@ -41,11 +41,16 @@ group :development, :test do
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
   gem 'rspec-rails'
-  gem 'shoulda-matchers'
-  gem 'factory_bot'
+
   gem 'pry'
   gem 'pry-byebug'
-  gem 'database_cleaner'
+end
+
+group :test do
+  gem 'factory_bot', '~> 4.8.2'
+  gem 'shoulda-matchers',       '~> 3.1.2'
+  gem 'database_cleaner',       '~> 1.6.2'
+  gem 'ffaker',                 '~> 2.8.0'
 end
 
 group :development do
@@ -55,17 +60,18 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'annotate', '~> 2.7.2'
+  gem 'rubocop', '~> 0.54.0', require: false
 end
 
-# group :assets do
-  gem 'sass-rails', '~> 5.0'
-  gem 'uglifier', '>= 1.3.0'
-  gem 'coffee-rails', '~> 4.2'
-  gem 'bootstrap-tagsinput-rails'
-  gem 'bootstrap'
-  gem 'jquery-rails'
-  gem 'angularjs-rails'
-# end
+gem 'dotenv-rails', '~> 2.2.1'
+gem 'sass-rails', '~> 5.0'
+gem 'uglifier', '>= 1.3.0'
+gem 'coffee-rails', '~> 4.2'
+gem 'bootstrap-tagsinput-rails'
+gem 'bootstrap'
+gem 'jquery-rails'
+gem 'angularjs-rails'
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
