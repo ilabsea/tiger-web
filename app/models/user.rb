@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: users
@@ -19,7 +20,6 @@
 #  role                   :integer
 #  deleted_at             :datetime
 #
-
 
 class User < ApplicationRecord
   # Include default devise modules. Others available are:

@@ -32,7 +32,7 @@ gem 'devise'
 gem 'breadcrumbs_on_rails'
 gem 'cancancan'
 gem 'will_paginate-bootstrap'
-gem "strip_attributes"
+gem 'strip_attributes', '~> 1.8.0'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -77,3 +77,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'dotenv-rails', '~> 2.2.1'
 gem 'active_model_serializers', '~> 0.10.7'
+gem 'awesome_nested_set', '~> 3.1.4'
