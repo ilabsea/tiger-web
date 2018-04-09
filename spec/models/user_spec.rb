@@ -21,14 +21,24 @@
 #  token_expired_date     :datetime
 #
 
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+require 'rails_helper'
 
-# This model initially had no columns defined. If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-one: {}
-# column: value
-#
-two: {}
-# column: value
+RSpec.describe User do
+  it { should respond_to(:authentication_token) }
+  it { should validate_uniqueness_of(:authentication_token)}
+
+  describe "#regenerate_authentication_token!" do
+    let(:user) { FactoryBot.create(:user, email: 'test@tiger.kape', password: 'password') }
+    it "generates a unique token" do
+      Devise.stub(:friendly_token).and_return("auniquetoken123")
+      user.regenerate_authentication_token!
+      expect(user.authentication_token).to eq "auniquetoken123"
+    end
+
+    it "generates another token when one already has been taken" do
+      existing_user = FactoryBot.create(:user, authentication_token: "auniquetoken123")
+      user.regenerate_authentication_token!
+      expect(user.authentication_token).not_to eq existing_user.authentication_token
+    end
+  end
+end

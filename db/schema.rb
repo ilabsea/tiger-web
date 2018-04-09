@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180409062556) do
+ActiveRecord::Schema.define(version: 20180409182925) do
 
   create_table "scene_actions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
@@ -74,6 +74,9 @@ ActiveRecord::Schema.define(version: 20180409062556) do
     t.datetime "updated_at", null: false
     t.integer "role"
     t.datetime "deleted_at"
+    t.string "authentication_token", default: ""
+    t.datetime "token_expired_date"
+    t.index ["authentication_token"], name: "index_users_on_authentication_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

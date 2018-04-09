@@ -31,8 +31,9 @@ gem 'jbuilder', '~> 2.5'
 gem 'devise'
 gem 'breadcrumbs_on_rails'
 gem 'cancancan'
-gem 'will_paginate-bootstrap'
+gem 'kaminari', '~> 1.1', '>= 1.1.1'
 gem 'strip_attributes', '~> 1.8.0'
+gem 'rack-cors', '~> 0.4.0', :require => 'rack/cors'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -47,7 +48,7 @@ group :development, :test do
 end
 
 group :test do
-  gem 'factory_bot', '~> 4.8.2'
+  gem 'factory_bot_rails', '~> 4.8.2'
   gem 'shoulda-matchers',       '~> 3.1.2'
   gem 'database_cleaner',       '~> 1.6.2'
   gem 'ffaker',                 '~> 2.8.0'
@@ -67,14 +68,12 @@ end
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.2'
-gem 'bootstrap-tagsinput-rails'
 gem 'bootstrap'
 gem 'jquery-rails'
-gem 'angularjs-rails'
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'dotenv-rails', '~> 2.2.1'
-gem 'active_model_serializers', '~> 0.10.7'
+gem 'active_model_serializers', '~> 0.9.7'
 gem 'awesome_nested_set', '~> 3.1.4'

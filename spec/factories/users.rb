@@ -21,14 +21,17 @@
 #  token_expired_date     :datetime
 #
 
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+FactoryBot.define do
+  factory :admin do
+    sequence(:email) { |n| "admin-#{n}@ilabsea.org"}
+    password  "password"
+    role :admin
+  end
 
-# This model initially had no columns defined. If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-one: {}
-# column: value
-#
-two: {}
-# column: value
+  factory :user do
+    sequence(:email) {|n| "user-#{n}@tiger.kape"}
+    password 'password'
+    role :publisher
+  end
+
+end

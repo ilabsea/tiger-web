@@ -11,11 +11,4 @@
 // about supported directives.
 //
 //= require jquery
-//= require bootstrap
-//= require bootstrap-tagsinput
-//= require angular
-//= require angular-resource
-//= require angular-route
-//= require ng-tags-input
-//= require ./angular/app
-//= require_tree ./angular
+//= require_tree .

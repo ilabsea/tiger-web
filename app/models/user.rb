@@ -19,6 +19,8 @@
 #  updated_at             :datetime         not null
 #  role                   :integer
 #  deleted_at             :datetime
+#  authentication_token   :string(255)      default("")
+#  token_expired_date     :datetime
 #
 
 class User < ApplicationRecord
@@ -30,9 +32,11 @@ class User < ApplicationRecord
   enum role: %i[admin publisher]
   after_initialize :set_default_role, if: :new_record?
 
-  scope :all_except, ->(user) { where.not(id: user) }
+  scope :all_except, ->(user) { where.not(id: user).order('updated_at desc') }
 
-  self.per_page = 15
+  before_create :regenerate_authentication_token!
+
+  validates :authentication_token, uniqueness: true
 
   def set_default_role
     self.role ||= :publisher
@@ -48,5 +52,10 @@ class User < ApplicationRecord
 
   def status
     deleted_at ? 'inactive' : 'active'
+  end
+
+  def regenerate_authentication_token!
+    self.authentication_token = Devise.friendly_token
+    self.token_expired_date = Time.zone.now
   end
 end
