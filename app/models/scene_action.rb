@@ -20,7 +20,7 @@ class SceneAction < ApplicationRecord
   acts_as_nested_set  dependent: :destroy, counter_cache: :children_count,
                       scope: [:scene_id]
 
-  validates :name, presence: true
+  validates :name, :scene_id, presence: true
 
   def self.update_order!(actions)
     previous = nil
