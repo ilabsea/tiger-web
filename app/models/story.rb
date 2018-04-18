@@ -17,6 +17,7 @@ class Story < ApplicationRecord
   has_many :story_tags, dependent: :destroy
   has_many :tags, through: :story_tags
   has_many :scenes, dependent: :destroy
+  has_many :scene_actions, dependent: :destroy
 
   accepts_nested_attributes_for :tags
 

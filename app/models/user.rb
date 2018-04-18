@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: users
@@ -66,5 +67,4 @@ class User < ApplicationRecord
     self.authentication_token = Devise.friendly_token
     self.token_expired_date = Time.zone.now
   end
-
 end

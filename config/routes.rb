@@ -5,6 +5,9 @@ Rails.application.routes.draw do
       resources :sessions, :only => [:create, :destroy]
       resources :stories do
         resources :scenes
+        resources :scene_actions do
+          put :update_order, on: :collection
+        end
       end
 
       resources :scene_actions
