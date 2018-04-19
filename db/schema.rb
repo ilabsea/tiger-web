@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20180409182925) do
     t.integer "rgt", null: false
     t.integer "depth", default: 0, null: false
     t.integer "children_count", default: 0, null: false
+    t.integer "link_scene_id"
     t.integer "scene_id"
     t.integer "story_id"
     t.index ["lft"], name: "index_scene_actions_on_lft"

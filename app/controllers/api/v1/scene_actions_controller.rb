@@ -6,8 +6,12 @@ module Api
       before_action :grab_story_from_story_id
 
       def index
-        @scene_actions = @story.scene_actions.roots
-        render json: @scene_actions, root: 'data', adapter: :json, meta: { scenes: @story.scenes }, status: :ok
+        @scene_actions = @scene.scene_actions.roots
+        render json: @scene_actions,
+               root: 'data',
+               adapter: :json,
+               meta: { scenes: @story.scenes.exclude_me(params[:scene_id]) },
+               status: :ok
       end
 
       def create
@@ -21,7 +25,7 @@ module Api
       end
 
       def update
-        @scene_action = @story.scene_actions.find(params[:id])
+        @scene_action = @scene.scene_actions.find(params[:id])
         @scene_action.image = params[:file] if params[:file].present?
 
         if @scene_action.update_attributes(data_params)
@@ -32,13 +36,13 @@ module Api
       end
 
       def update_order
-        @story.scene_actions.update_order!(params.require(:data))
+        @scene.scene_actions.update_order!(params.require(:data))
 
-        render json: @story.scene_actions.roots, status: :ok
+        render json: @scene.scene_actions.roots, status: :ok
       end
 
       def destroy
-        @scene_action = @story.scene_actions.find(params[:id])
+        @scene_action = @scene.scene_actions.find(params[:id])
 
         if @scene_action.destroy
           head :ok
@@ -50,11 +54,12 @@ module Api
       private
 
       def data_params
-        params.require(:scene_action).permit(:id, :name, :parent_id, :scene_id, :story_id)
+        params.require(:scene_action).permit(:id, :name, :parent_id, :link_scene_id, :scene_id, :story_id)
       end
 
       def grab_story_from_story_id
         @story = Story.find(params[:story_id])
+        @scene = Scene.find(params[:scene_id])
       end
     end
   end

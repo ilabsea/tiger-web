@@ -4,9 +4,10 @@ Rails.application.routes.draw do
       resources :users
       resources :sessions, :only => [:create, :destroy]
       resources :stories do
-        resources :scenes
-        resources :scene_actions do
-          put :update_order, on: :collection
+        resources :scenes do
+          resources :scene_actions do
+            put :update_order, on: :collection
+          end
         end
       end
 
@@ -15,5 +16,4 @@ Rails.application.routes.draw do
   end
 
   post 'create_user' => 'users#create', as: :create_user
-
 end

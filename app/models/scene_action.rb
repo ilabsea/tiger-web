@@ -11,6 +11,7 @@
 #  rgt            :integer          not null
 #  depth          :integer          default(0), not null
 #  children_count :integer          default(0), not null
+#  link_scene_id  :integer
 #  scene_id       :integer
 #  story_id       :integer
 #
@@ -18,9 +19,10 @@
 class SceneAction < ApplicationRecord
   belongs_to :scene
   belongs_to :story
+  belongs_to :link_scene, class_name: 'Scene', foreign_key: :link_scene_id
 
   acts_as_nested_set dependent: :destroy, counter_cache: :children_count,
-                     scope: [:story_id]
+                     scope: %i[scene_id story_id]
 
   validates :name, :scene_id, :story_id, presence: true
 

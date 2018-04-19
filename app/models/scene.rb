@@ -19,5 +19,7 @@ class Scene < ApplicationRecord
 
   validates :name, :description, presence: true
 
+  scope :exclude_me, ->(id) { where.not(id: id) }
+
   mount_uploader :image, ImageUploader
 end
