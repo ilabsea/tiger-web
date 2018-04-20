@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(version: 20180409182925) do
 
   create_table "scenes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
-    t.string "description"
+    t.text "description"
     t.string "image"
     t.integer "story_id"
     t.datetime "created_at", null: false
