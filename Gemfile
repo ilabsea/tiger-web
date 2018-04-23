@@ -12,15 +12,11 @@ gem 'rails', '~> 5.1.5'
 gem 'mysql2', '>= 0.3.18', '< 0.5'
 # Use Puma as the app server
 gem 'puma', '~> 3.7'
-# Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0'
-# Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '>= 1.3.0'
+
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
-# Use CoffeeScript for .coffee assets and views
-gem 'coffee-rails', '~> 4.2'
+
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -32,6 +28,12 @@ gem 'jbuilder', '~> 2.5'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
+gem 'devise'
+gem 'breadcrumbs_on_rails'
+gem 'cancancan'
+gem 'kaminari', '~> 1.1', '>= 1.1.1'
+gem 'strip_attributes', '~> 1.8.0'
+gem 'rack-cors', '~> 0.4.0', :require => 'rack/cors'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -39,6 +41,17 @@ group :development, :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
+  gem 'rspec-rails'
+
+  gem 'pry'
+  gem 'pry-byebug'
+end
+
+group :test do
+  gem 'factory_bot_rails', '~> 4.8.2'
+  gem 'shoulda-matchers',       '~> 3.1.2'
+  gem 'database_cleaner',       '~> 1.6.2'
+  gem 'ffaker',                 '~> 2.8.0'
 end
 
 group :development do
@@ -48,7 +61,19 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'annotate', '~> 2.7.2'
+  gem 'rubocop', '~> 0.54.0', require: false
 end
+
+gem 'sass-rails', '~> 5.0'
+gem 'uglifier', '>= 1.3.0'
+gem 'coffee-rails', '~> 4.2'
+gem 'bootstrap'
+gem 'jquery-rails'
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+gem 'dotenv-rails', '~> 2.2.1'
+gem 'active_model_serializers', '~> 0.9.7'
+gem 'awesome_nested_set', '~> 3.1.4'
