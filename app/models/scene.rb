@@ -16,4 +16,8 @@
 class Scene < ApplicationRecord
   has_many :scene_actions, dependent: :destroy
   belongs_to :story
+
+  validates :name, :description, presence: true
+
+  mount_uploader :image, ImageUploader
 end

@@ -22,6 +22,7 @@
 !/log/.keep
 !/tmp/.keep
 /tmp
+.env
 /config/database.yml
 /config/application.yml
 
@@ -32,3 +33,4 @@
 
 *.DS_Store
 sftp-config.json
+public/uploads
