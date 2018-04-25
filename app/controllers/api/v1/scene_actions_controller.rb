@@ -3,19 +3,18 @@
 module Api
   module V1
     class SceneActionsController < ApiController
-      before_action :grab_story_from_story_id
+      before_action :grab_scene_from_scene_id
 
       def index
         @scene_actions = @scene.scene_actions.roots
         render json: @scene_actions,
                root: 'data',
-               adapter: :json,
-               meta: { scenes: @story.scenes.exclude_me(params[:scene_id]) },
+               meta: { scenes: @story.scenes.exclude_me(params[:scene_id]), story: @story },
                status: :ok
       end
 
       def create
-        @scene_action = @story.scene_actions.new(data_params)
+        @scene_action = @scene.scene_actions.new(data_params)
 
         if @scene_action.save
           render json: @scene_action, status: :created
@@ -54,12 +53,12 @@ module Api
       private
 
       def data_params
-        params.require(:scene_action).permit(:id, :name, :parent_id, :link_scene_id, :scene_id, :story_id)
+        params.require(:scene_action).permit(:id, :name, :parent_id, :link_scene_id, :scene_id).merge(story_id: @story.id)
       end
 
-      def grab_story_from_story_id
-        @story = Story.find(params[:story_id])
+      def grab_scene_from_scene_id
         @scene = Scene.find(params[:scene_id])
+        @story = @scene.story
       end
     end
   end

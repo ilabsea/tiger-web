@@ -4,14 +4,14 @@ Rails.application.routes.draw do
       resources :users
       resources :sessions, :only => [:create, :destroy]
       resources :stories do
-        resources :scenes do
-          resources :scene_actions do
-            put :update_order, on: :collection
-          end
-        end
+        resources :scenes
       end
 
-      resources :scene_actions
+      resources :scenes do
+        resources :scene_actions do
+          put :update_order, on: :collection
+        end
+      end
     end
   end
 
