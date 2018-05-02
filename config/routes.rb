@@ -3,12 +3,15 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :users
       resources :sessions, :only => [:create, :destroy]
-      resources :stories do
-        resources :scenes
+      resources :stories, only: [:index, :create, :update, :destroy] do
+        resources :scenes, only: [:index, :create, :update, :destroy] do
+          put :update_order, on: :collection
+        end
+        post :clone, on: :member
       end
 
-      resources :scenes do
-        resources :scene_actions do
+      resources :scenes, only: [] do
+        resources :scene_actions, only: [:index, :create, :update, :destroy] do
           put :update_order, on: :collection
         end
       end

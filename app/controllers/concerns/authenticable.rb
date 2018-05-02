@@ -3,7 +3,7 @@
 module Authenticable
   def current_user
     User.where(authentication_token: request.headers['Authorization'])
-        .where('token_expired_date >= ?', ENV['TOKEN_EXPIRED_IN_MONTH'].to_i.month.ago).first
+        .where('token_expired_date >= ?', Time.zone.now).first
   end
 
   def authenticate_with_token!

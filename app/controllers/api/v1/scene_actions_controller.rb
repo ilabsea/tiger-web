@@ -4,9 +4,11 @@ module Api
   module V1
     class SceneActionsController < ApiController
       before_action :grab_scene_from_scene_id
+      authorize_resource
 
       def index
-        @scene_actions = @scene.scene_actions.roots
+        @scene_actions = @scene.scene_actions
+
         render json: @scene_actions,
                root: 'data',
                meta: { scenes: @story.scenes.exclude_me(params[:scene_id]), story: @story },
@@ -14,7 +16,7 @@ module Api
       end
 
       def create
-        @scene_action = @scene.scene_actions.new(data_params)
+        @scene_action = @scene.scene_actions.new(scene_action_params)
 
         if @scene_action.save
           render json: @scene_action, status: :created
@@ -27,7 +29,7 @@ module Api
         @scene_action = @scene.scene_actions.find(params[:id])
         @scene_action.image = params[:file] if params[:file].present?
 
-        if @scene_action.update_attributes(data_params)
+        if @scene_action.update_attributes(scene_action_params)
           render json: @scene_action, status: :ok
         else
           render json: @scene_action.errors, status: :unprocessable_entity
@@ -37,7 +39,7 @@ module Api
       def update_order
         @scene.scene_actions.update_order!(params.require(:data))
 
-        render json: @scene.scene_actions.roots, status: :ok
+        head :ok
       end
 
       def destroy
@@ -52,8 +54,8 @@ module Api
 
       private
 
-      def data_params
-        params.require(:scene_action).permit(:id, :name, :parent_id, :link_scene_id, :scene_id).merge(story_id: @story.id)
+      def scene_action_params
+        params.require(:scene_action).permit(:id, :name, :use_next, :link_scene_id, :scene_id, :story_id)
       end
 
       def grab_scene_from_scene_id

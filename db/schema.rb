@@ -14,33 +14,37 @@ ActiveRecord::Schema.define(version: 20180409182925) do
 
   create_table "scene_actions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
-    t.integer "parent_id"
-    t.integer "lft", null: false
-    t.integer "rgt", null: false
-    t.integer "depth", default: 0, null: false
-    t.integer "children_count", default: 0, null: false
+    t.integer "display_order"
     t.integer "link_scene_id"
+    t.boolean "use_next", default: false
     t.integer "scene_id"
     t.integer "story_id"
-    t.index ["lft"], name: "index_scene_actions_on_lft"
-    t.index ["parent_id"], name: "index_scene_actions_on_parent_id"
-    t.index ["rgt"], name: "index_scene_actions_on_rgt"
   end
 
   create_table "scenes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
     t.text "description"
     t.string "image"
+    t.integer "parent_id"
+    t.integer "lft", null: false
+    t.integer "rgt", null: false
     t.integer "story_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["lft"], name: "index_scenes_on_lft"
+    t.index ["parent_id"], name: "index_scenes_on_parent_id"
+    t.index ["rgt"], name: "index_scenes_on_rgt"
   end
 
   create_table "stories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "title"
-    t.string "description"
+    t.text "description"
     t.string "image"
     t.integer "user_id"
+    t.string "status"
+    t.boolean "actived", default: true
+    t.string "reason"
+    t.datetime "published_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["title", "user_id"], name: "index_stories_on_title_and_user_id"

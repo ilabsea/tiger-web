@@ -34,11 +34,9 @@ class User < ApplicationRecord
 
   scope :all_except, ->(user) { where.not(id: user).order('updated_at desc') }
 
-  before_create :regenerate_authentication_token!
+  has_many :stories, dependent: :destroy
 
-  validates :authentication_token, uniqueness: true
-
-  before_create :regenerate_authentication_token!
+  before_create :regenerate_authentication_token
 
   validates :authentication_token, uniqueness: true
 
@@ -58,13 +56,8 @@ class User < ApplicationRecord
     deleted_at ? 'inactive' : 'active'
   end
 
-  def regenerate_authentication_token!
+  def regenerate_authentication_token
     self.authentication_token = Devise.friendly_token
-    self.token_expired_date = Time.zone.now
-  end
-
-  def regenerate_authentication_token!
-    self.authentication_token = Devise.friendly_token
-    self.token_expired_date = Time.zone.now
+    self.token_expired_date = ENV['TOKEN_EXPIRED_IN_MONTH'].to_i.month.from_now
   end
 end
