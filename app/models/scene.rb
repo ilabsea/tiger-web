@@ -6,7 +6,7 @@
 #
 #  id          :integer          not null, primary key
 #  name        :string(255)
-#  description :string(255)
+#  description :text(65535)
 #  image       :string(255)
 #  story_id    :integer
 #  created_at  :datetime         not null
@@ -18,6 +18,8 @@ class Scene < ApplicationRecord
   belongs_to :story
 
   validates :name, :description, presence: true
+
+  scope :exclude_me, ->(id) { where.not(id: id) }
 
   mount_uploader :image, ImageUploader
 end

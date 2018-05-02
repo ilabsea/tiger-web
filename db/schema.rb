@@ -19,7 +19,9 @@ ActiveRecord::Schema.define(version: 20180409182925) do
     t.integer "rgt", null: false
     t.integer "depth", default: 0, null: false
     t.integer "children_count", default: 0, null: false
+    t.integer "link_scene_id"
     t.integer "scene_id"
+    t.integer "story_id"
     t.index ["lft"], name: "index_scene_actions_on_lft"
     t.index ["parent_id"], name: "index_scene_actions_on_parent_id"
     t.index ["rgt"], name: "index_scene_actions_on_rgt"
@@ -27,7 +29,7 @@ ActiveRecord::Schema.define(version: 20180409182925) do
 
   create_table "scenes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
-    t.string "description"
+    t.text "description"
     t.string "image"
     t.integer "story_id"
     t.datetime "created_at", null: false
