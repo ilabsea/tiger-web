@@ -7,6 +7,11 @@ Rails.application.routes.draw do
         resources :scenes, only: [:index, :create, :update, :destroy] do
           put :update_order, on: :collection
         end
+
+        resources :questions, only: [:index, :create, :update, :destroy] do
+          put :update_order, on: :collection
+        end
+
         post :clone, on: :member
       end
 

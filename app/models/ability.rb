@@ -11,6 +11,8 @@ class Ability
       can :manage, Story, user_id: user.id, status: %w[new published unpublished]
       can :manage, Scene
       can :manage, SceneAction
+      can :manage, Question
+      can :manage, Choice
 
       can :manage, :all if user.admin?
     end
