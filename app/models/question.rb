@@ -16,7 +16,7 @@ class Question < ApplicationRecord
   belongs_to :story
   has_many :choices, dependent: :destroy
 
-  accepts_nested_attributes_for :choices
+  accepts_nested_attributes_for :choices, allow_destroy: true, reject_if: ->(a) { a[:label].blank? }
 
   default_scope { order(display_order: :asc) }
 

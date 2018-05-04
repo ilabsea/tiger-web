@@ -7,9 +7,9 @@ module Api
       authorize_resource
 
       def index
-        @questions = @story.questions.page(params[:page]).per(params[:per_page])
+        @questions = @story.questions
 
-        render json: @questions, meta: pagination(@questions)
+        render json: @questions
       end
 
       def create
