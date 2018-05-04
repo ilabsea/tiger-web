@@ -9,7 +9,7 @@ module Api
       def index
         @questions = @story.questions
 
-        render json: @questions
+        render json: @questions, meta: { story: @story }, status: :ok
       end
 
       def create
