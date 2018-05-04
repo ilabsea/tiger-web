@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(version: 20180409182925) do
     t.integer "user_id"
     t.string "status"
     t.boolean "actived", default: true
-    t.string "reason"
+    t.text "reason"
     t.datetime "published_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

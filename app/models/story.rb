@@ -11,7 +11,7 @@
 #  user_id      :integer
 #  status       :string(255)
 #  actived      :boolean          default(TRUE)
-#  reason       :string(255)
+#  reason       :text(65535)
 #  published_at :datetime
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null

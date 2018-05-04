@@ -7,7 +7,7 @@ class CreateStories < ActiveRecord::Migration[5.1]
       t.integer :user_id
       t.string :status
       t.boolean :actived, default: true
-      t.string :reason
+      t.text :reason
       t.datetime :published_at
       t.timestamps null: false
     end
