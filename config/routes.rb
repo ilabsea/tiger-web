@@ -14,12 +14,6 @@ Rails.application.routes.draw do
 
         post :clone, on: :member
       end
-
-      resources :scenes, only: [] do
-        resources :scene_actions, only: [:index, :create, :update, :destroy] do
-          put :update_order, on: :collection
-        end
-      end
     end
   end
 

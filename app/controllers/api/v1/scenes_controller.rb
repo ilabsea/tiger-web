@@ -54,7 +54,10 @@ module Api
 
       def scene_params
         params[:data] = JSON.parse(params['data'])
-        params[:data].require(:scene).permit(:id, :name, :parent_id, :description, :image, :story_id)
+        params[:data].require(:scene).permit(
+          :id, :name, :parent_id, :description, :image, :story_id,
+          scene_actions_attributes: %i[id name display_order link_scene_id use_next story_id _destroy]
+        )
       end
 
       def grab_story_from_story_id

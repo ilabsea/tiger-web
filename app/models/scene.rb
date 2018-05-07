@@ -29,6 +29,8 @@ class Scene < ApplicationRecord
 
   acts_as_nested_set dependent: :destroy
 
+  accepts_nested_attributes_for :scene_actions, allow_destroy: true, reject_if: ->(a) { a[:name].blank? }
+
   ## Class Methods
   def self.update_order!(ids)
     previous = nil
