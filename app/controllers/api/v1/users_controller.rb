@@ -3,6 +3,8 @@
 module Api
   module V1
     class UsersController < ApiController
+      authorize_resource
+
       def index
         users = User.all_except(current_user).page(params[:page]).per(params[:per_page])
         render json: users, meta: pagination(users)
@@ -13,7 +15,7 @@ module Api
         if user.save
           render json: user, status: :created
         else
-          render json: { errors: user.errors }, status: :created
+          render json: { errors: user.errors }, status: :unprocessable_entity
         end
       end
 

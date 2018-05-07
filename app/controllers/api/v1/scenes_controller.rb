@@ -4,14 +4,16 @@ module Api
   module V1
     class ScenesController < ApiController
       before_action :grab_story_from_story_id
+      authorize_resource
 
       def index
-        @scenes = @story.scenes
+        @scenes = @story.scenes.roots
+
         render json: @scenes, status: :ok
       end
 
       def create
-        @scene = @story.scenes.new(data_params)
+        @scene = @story.scenes.new(scene_params)
         @scene.image = params[:file]
 
         if @scene.save
@@ -25,18 +27,24 @@ module Api
         @scene = @story.scenes.find(params[:id])
         @scene.image = params[:file] if params[:file].present?
 
-        if @scene.update_attributes(data_params)
+        if @scene.update_attributes(scene_params)
           render json: @scene, status: :ok
         else
           render json: @scene.errors, status: :unprocessable_entity
         end
       end
 
+      def update_order
+        @story.scenes.update_order!(params.require(:data))
+
+        head :ok
+      end
+
       def destroy
         @scene = @story.scenes.find(params[:id])
 
         if @scene.destroy
-          render json: {}, status: :ok
+          head :ok
         else
           render json: @scene.errors, status: :unprocessable_entity
         end
@@ -44,9 +52,9 @@ module Api
 
       private
 
-      def data_params
+      def scene_params
         params[:data] = JSON.parse(params['data'])
-        params[:data].require(:scene).permit(:id, :name, :description, :image, :story_id)
+        params[:data].require(:scene).permit(:id, :name, :parent_id, :description, :image, :story_id)
       end
 
       def grab_story_from_story_id
