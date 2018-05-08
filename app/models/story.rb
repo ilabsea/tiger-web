@@ -24,6 +24,8 @@ class Story < ApplicationRecord
   has_many :scenes, dependent: :destroy
   has_many :scene_actions, dependent: :destroy
   has_many :questions, dependent: :destroy
+  has_many :story_downloads, dependent: :destroy
+  has_many :story_reads, dependent: :destroy
 
   STATUSED = %w[new published unpublished archived].freeze
 
