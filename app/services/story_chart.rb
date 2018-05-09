@@ -3,17 +3,16 @@
 class StoryChart
   attr_reader :options
 
-  def initialize(params = {})
-    @options = {
-      story_id: params[:story_id],
-      period: params[:period].try(:to_i) || 7,
-      period_unit: params[:period_unit].try(:downcase) || 'days'
-    }
+  def initialize(options = {})
+    @options = options
+    @options[:period] ||= 7
+    @options[:period_unit] ||= 'days'
   end
 
   def data
-    return group_by_month if %w[month months].include?(options[:period_unit])
-    return group_by_lifetime if options[:period_unit] == 'lifetime'
+    return group_by_month if %w[month months].include?(options[:period_unit].downcase)
+    return group_by_lifetime if options[:period_unit].casecmp('lifetime').zero?
+    return group_by_custom if options[:period_unit].casecmp('custom').zero?
 
     group_by_day
   end
@@ -21,25 +20,44 @@ class StoryChart
   private
 
   def group_by_month
-    start = options[:period].months.ago
-    downloads = StoryDownload.by_story(options[:story_id]).group_by_month(:created_at, format: '%b %Y', range: start.beginning_of_month..Time.zone.now).count
-    reads = StoryRead.by_story(options[:story_id]).group_by_month(:created_at, format: '%b %Y', range: start.beginning_of_month..Time.zone.now).count
+    from = options[:period].to_i.months.ago.beginning_of_month
+    to = Time.zone.now
 
-    format_data(downloads, reads)
+    data_by_month(from, to)
   end
 
   def group_by_lifetime
-    start = Story.exclude_news.first.created_at.beginning_of_day
-    downloads = StoryDownload.by_story(options[:story_id]).group_by_month(:created_at, format: '%b %Y', range: start..Time.zone.now).count
-    reads = StoryRead.by_story(options[:story_id]).group_by_month(:created_at, format: '%b %Y', range: start..Time.zone.now).count
+    from = Story.exclude_news.first.created_at.beginning_of_day
+    from = Story.find(options[:story_id]).created_at.beginning_of_day if options[:story_id].present?
+    to = Time.zone.now
+
+    data_by_month(from, to)
+  end
+
+  def group_by_custom
+    from = options[:from].to_date.beginning_of_day
+    to = options[:to].to_date.at_end_of_day
+
+    data_by_day(from, to)
+  end
+
+  def group_by_day
+    from = options[:period].to_i.days.ago.beginning_of_day
+    to = 1.day.ago
+
+    data_by_day(from, to)
+  end
+
+  def data_by_month(from, to)
+    downloads = StoryDownload.by_story(options[:story_id]).group_by_month(:created_at, format: '%b %Y', range: from..to).count
+    reads = StoryRead.by_story(options[:story_id]).group_by_month(:created_at, format: '%b %Y', range: from..to).count
 
     format_data(downloads, reads)
   end
 
-  def group_by_day
-    start = options[:period].days.ago
-    downloads = StoryDownload.by_story(options[:story_id]).group_by_day(:created_at, format: '%B %d, %Y', range: start.beginning_of_day..1.day.ago).count
-    reads = StoryRead.by_story(options[:story_id]).group_by_day(:created_at, format: '%B %d, %Y', range: start.beginning_of_day..1.day.ago).count
+  def data_by_day(from, to)
+    downloads = StoryDownload.by_story(options[:story_id]).group_by_day(:created_at, format: '%B %d, %Y', range: from..to).count
+    reads = StoryRead.by_story(options[:story_id]).group_by_day(:created_at, format: '%B %d, %Y', range: from..to).count
 
     format_data(downloads, reads)
   end

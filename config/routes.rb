@@ -15,7 +15,7 @@ Rails.application.routes.draw do
         post :clone, on: :member
       end
 
-      resources :story_downloads, only: [:index, :create]
+      resource :chart, only: [:show]
     end
   end
 
