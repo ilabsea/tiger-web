@@ -42,6 +42,7 @@ class Story < ApplicationRecord
 
   scope :actives, -> { where(actived: true) }
   scope :exclude_archives, -> { where.not(status: 'archived').order('created_at desc') }
+  scope :exclude_news, -> { where.not(status: 'new') }
 
   def tags_attributes=(attributes)
     attributes.each do |attribute|

@@ -6,14 +6,14 @@ module Api
       authorize_resource
 
       def index
-        stories = Story.where.not(status: 'new').select(:id, :title, :status)
-        storyChart = StoryChart.new(
+        stories = Story.exclude_news.select(:id, :title, :status)
+        story_chart = StoryChart.new(
           story_id: params[:story_id],
           period: params[:period],
           period_unit: params[:period_unit]
         )
 
-        render json: storyChart.data, root: 'data', meta: { stories: stories }, status: :ok
+        render json: story_chart.data, root: 'data', meta: { stories: stories }, status: :ok
       end
 
       def create
@@ -21,7 +21,8 @@ module Api
 
       private
 
-      def download_params; end
+      def download_params
+      end
     end
   end
 end

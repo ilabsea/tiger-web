@@ -1,41 +1,60 @@
 # frozen_string_literal: true
 
-# Charts & Graphs
-# http://railscasts.com/episodes/223-charts-graphs-revised
-
 class StoryChart
   attr_reader :options
 
-  def initialize(options = {})
-    @options = options
+  def initialize(params = {})
+    @options = {
+      story_id: params[:story_id],
+      period: params[:period].try(:to_i) || 7,
+      period_unit: params[:period_unit].try(:downcase) || 'days'
+    }
   end
 
   def data
-    options[:period] = if options[:period].present?
-                         options[:period].to_i.send(options[:period_unit]).ago
-                       else
-                         7.days.ago
-                       end
+    return group_by_month if %w[month months].include?(options[:period_unit])
+    return group_by_lifetime if options[:period_unit] == 'lifetime'
 
-    story_downloads = filter_story_download(options)
-    story_reads = filter_story_read(options)
+    group_by_day
+  end
 
-    (options[:period].to_date..1.day.ago.to_date).map do |date|
-      {
-        date: I18n.l(date, format: :long),
-        story_downloads: story_downloads[date] || 0,
-        story_reads: story_reads[date] || 0
-      }
+  private
+
+  def group_by_month
+    start = options[:period].months.ago
+    downloads = StoryDownload.by_story(options[:story_id]).group_by_month(:created_at, format: '%b %Y', range: start.beginning_of_month..Time.zone.now).count
+    reads = StoryRead.by_story(options[:story_id]).group_by_month(:created_at, format: '%b %Y', range: start.beginning_of_month..Time.zone.now).count
+
+    format_data(downloads, reads)
+  end
+
+  def group_by_lifetime
+    start = Story.exclude_news.first.created_at.beginning_of_day
+    downloads = StoryDownload.by_story(options[:story_id]).group_by_month(:created_at, format: '%b %Y', range: start..Time.zone.now).count
+    reads = StoryRead.by_story(options[:story_id]).group_by_month(:created_at, format: '%b %Y', range: start..Time.zone.now).count
+
+    format_data(downloads, reads)
+  end
+
+  def group_by_day
+    start = options[:period].days.ago
+    downloads = StoryDownload.by_story(options[:story_id]).group_by_day(:created_at, format: '%B %d, %Y', range: start.beginning_of_day..1.day.ago).count
+    reads = StoryRead.by_story(options[:story_id]).group_by_day(:created_at, format: '%B %d, %Y', range: start.beginning_of_day..1.day.ago).count
+
+    format_data(downloads, reads)
+  end
+
+  def format_data(downloads, reads)
+    arr = []
+
+    downloads.each do |key, value|
+      arr.push(
+        date: key,
+        story_downloads: value,
+        story_reads: reads[key]
+      )
     end
-  end
 
-  # https://rubyplus.com/articles/3311-Group-By-Month-in-Rails-5
-  # https://stackoverflow.com/questions/12526161/group-records-by-both-month-and-year-in-rails
-  def filter_story_download(options = {})
-    StoryDownload.filter(options)
-  end
-
-  def filter_story_read(options = {})
-    StoryRead.filter(options)
+    arr
   end
 end
