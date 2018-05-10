@@ -1,16 +1,3 @@
-# == Schema Information
-#
-# Table name: scenes
-#
-#  id          :integer          not null, primary key
-#  name        :string(255)
-#  description :string(255)
-#  image       :string(255)
-#  story_id    :integer
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#
-
 require 'rails_helper'
 
 RSpec.describe Scene do

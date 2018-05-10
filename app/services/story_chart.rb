@@ -21,7 +21,7 @@ class StoryChart
 
   def group_by_month
     from = options[:period].to_i.months.ago.beginning_of_month
-    to = Time.zone.now
+    to = Time.zone.now.beginning_of_month - 1.day
 
     data_by_month(from, to)
   end
@@ -43,7 +43,7 @@ class StoryChart
 
   def group_by_day
     from = options[:period].to_i.days.ago.beginning_of_day
-    to = 1.day.ago
+    to = 1.day.ago.at_end_of_day
 
     data_by_day(from, to)
   end
