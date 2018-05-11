@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe StoryContentDuplicator do
   describe '#dup' do
-    let!(:parent_story) { create(:story, :with_scene_and_actions, :with_tags) }
+    let!(:parent_story) { create(:story, :with_scene_and_actions, :with_questions_and_choices, :with_tags) }
     let!(:duplicator) { described_class.new(parent_story.id) }
     let!(:story) { duplicator.dup && duplicator.child }
 
@@ -24,6 +24,14 @@ RSpec.describe StoryContentDuplicator do
 
     it 'clones story scene actions' do
       expect(story.scene_actions.count).to eq parent_story.scene_actions.count
+    end
+
+    it 'clones story questions' do
+      expect(story.questions.count).to eq parent_story.questions.count
+    end
+
+    it 'clones story question choices' do
+      expect(story.questions[0].choices.count).to eq parent_story.questions[0].choices.count
     end
   end
 end
