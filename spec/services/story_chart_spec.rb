@@ -56,28 +56,12 @@ RSpec.describe StoryChart do
       it { expect(total_reads).to eq(20) }
     end
 
-    context 'when has params and period_unit is lifetime, it returns data group by month' do
-      let(:storyChart) { StoryChart.new({period: '', period_unit: 'lifetime'}) }
-
-      it { expect(data.length).to eq(19) }
-      it { expect(total_downloads).to eq(60) }
-      it { expect(total_reads).to eq(46) }
-    end
-
     context 'when has params and period_unit is custom, it returns data group by day within from and to' do
       let(:storyChart) { StoryChart.new({period: '', period_unit: 'custom', from: '2018-05-01', to: '2018-05-31'}) }
 
       it { expect(data.length).to eq(31) }
       it { expect(total_downloads).to eq(30) }
       it { expect(total_reads).to eq(23) }
-    end
-
-    context 'when has params story_id is 1, it returns data group by day within last 7 days of story1' do
-      let(:storyChart) { StoryChart.new({story_id: story1.id}) }
-
-      it { expect(data.length).to eq(7) }
-      it { expect(total_downloads).to eq(7) }
-      it { expect(total_reads).to eq(7) }
     end
   end
 end
