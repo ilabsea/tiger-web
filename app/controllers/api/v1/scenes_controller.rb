@@ -56,6 +56,7 @@ module Api
         params[:data] = JSON.parse(params['data'])
         params[:data].require(:scene).permit(
           :id, :name, :parent_id, :description, :image, :story_id,
+          :visible_name, :image_as_background, :remove_image,
           scene_actions_attributes: %i[id name display_order link_scene_id use_next story_id _destroy]
         )
       end

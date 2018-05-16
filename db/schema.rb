@@ -45,6 +45,8 @@ ActiveRecord::Schema.define(version: 20180508070741) do
     t.integer "lft", null: false
     t.integer "rgt", null: false
     t.integer "story_id"
+    t.boolean "visible_name", default: true
+    t.boolean "image_as_background", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["lft"], name: "index_scenes_on_lft"
