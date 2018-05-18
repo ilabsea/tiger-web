@@ -54,22 +54,27 @@ group :test do
   gem 'ffaker',                 '~> 2.8.0'
 end
 
+gem 'listen', '>= 3.0.5', '< 3.2'
+gem 'uglifier', '>= 1.3.0'
+gem 'coffee-rails', '~> 4.2'
+gem 'bootstrap'
+gem 'jquery-rails'
+gem 'sass-rails', '~> 5.0'
+
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem 'web-console', '>= 3.3.0'
-  gem 'listen', '>= 3.0.5', '< 3.2'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'annotate', '~> 2.7.2'
   gem 'rubocop', '~> 0.54.0', require: false
+  gem 'capistrano', '~> 3.10', require: false
+  gem 'capistrano-rails',       '~> 1.3.1', require: false
+  gem 'capistrano-rbenv',       '~> 2.1.3'
+  gem 'capistrano-bundler',     '~> 1.3.0'
+  gem 'capistrano-passenger',   '~> 0.2.0'
 end
-
-gem 'sass-rails', '~> 5.0'
-gem 'uglifier', '>= 1.3.0'
-gem 'coffee-rails', '~> 4.2'
-gem 'bootstrap'
-gem 'jquery-rails'
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
