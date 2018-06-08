@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
+      root 'users#index'
       resources :users
       resources :sessions, only: [:create, :destroy]
       resources :stories, only: [:index, :create, :update, :destroy] do
@@ -16,6 +17,8 @@ Rails.application.routes.draw do
       end
 
       resource :chart, only: [:show]
+      resources :story_downloads, only: [:create]
+      resources :tags, only: [:index]
     end
   end
 

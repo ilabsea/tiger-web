@@ -4,6 +4,7 @@ module Api
   module V1
     class ScenesController < ApiController
       before_action :grab_story_from_story_id
+      skip_before_action :authenticate_with_token!, only: :index
       authorize_resource
 
       def index
@@ -56,7 +57,7 @@ module Api
         params[:data] = JSON.parse(params['data'])
         params[:data].require(:scene).permit(
           :id, :name, :parent_id, :description, :image, :story_id,
-          :visible_name, :image_as_background, :remove_image,
+          :visible_name, :image_as_background, :remove_image, :is_end,
           scene_actions_attributes: %i[id name display_order link_scene_id use_next story_id _destroy]
         )
       end

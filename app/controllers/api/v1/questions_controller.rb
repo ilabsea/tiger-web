@@ -4,6 +4,7 @@ module Api
   module V1
     class QuestionsController < ApiController
       before_action :grab_story_from_story_id
+      skip_before_action :authenticate_with_token!, only: :index
       authorize_resource
 
       def index
