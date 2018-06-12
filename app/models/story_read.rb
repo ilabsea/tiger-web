@@ -15,8 +15,8 @@
 
 class StoryRead < ApplicationRecord
   belongs_to :story
-  has_many :story_responses
-  has_many :quiz_responses
+  has_many :story_responses, dependent: :destroy
+  has_many :quiz_responses, dependent: :destroy
 
   accepts_nested_attributes_for :story_responses
   accepts_nested_attributes_for :quiz_responses

@@ -17,8 +17,8 @@ module Api
 
       private
 
-      def story_download_params
-        params.permit(:story_id, :user_uuid,
+      def story_read_params
+        params.permit(:story_id, :user_uuid, :finished_at, :quiz_finished,
                       story_responses_attributes: %i[scene_id scene_action_id],
                       quiz_responses_attributes: %i[question_id choice_id])
       end

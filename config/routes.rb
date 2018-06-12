@@ -18,7 +18,10 @@ Rails.application.routes.draw do
 
       resource :chart, only: [:show]
       resources :story_downloads, only: [:create]
-      resources :tags, only: [:index]
+      resources :story_reads, only: [:create]
+      resources :tags, only: [:index], module: 'tags' do
+        resources :stories, on: :member, only: [:index]
+      end
     end
   end
 
