@@ -8,9 +8,9 @@ module Api
 
         def index
           @tag = Tag.find(params[:tag_id])
-          @stories = @tag.stories.includes(:user, :tags).order('created_at desc').page(params[:page]).per(params[:per_page])
+          @stories = @tag.stories.includes(:user, :tags).order('created_at desc')
 
-          render json: @stories, meta: pagination(@stories), status: :ok
+          render json: @stories, status: :ok
         end
       end
     end
