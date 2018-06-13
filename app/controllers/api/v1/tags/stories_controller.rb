@@ -8,7 +8,7 @@ module Api
 
         def index
           @tag = Tag.find(params[:tag_id])
-          @stories = @tag.stories.includes(:user, :tags).order('created_at desc')
+          @stories = @tag.stories.published.includes(:user, :tags).order('created_at desc')
 
           render json: @stories, status: :ok
         end
