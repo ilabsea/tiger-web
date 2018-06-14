@@ -23,6 +23,7 @@ class Story < ApplicationRecord
   has_many :tags, through: :story_tags
   has_many :scenes, dependent: :destroy
   has_many :scene_actions, dependent: :destroy
+  has_many :questions, dependent: :destroy
 
   STATUSED = %w[new published unpublished archived].freeze
 

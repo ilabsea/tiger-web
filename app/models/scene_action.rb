@@ -21,9 +21,4 @@ class SceneAction < ApplicationRecord
   validates :name, :scene_id, :story_id, presence: true
 
   default_scope { order(display_order: :asc) }
-
-  ## Class Methods
-  def self.update_order!(ids)
-    super(ids, :display_order)
-  end
 end

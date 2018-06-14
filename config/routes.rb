@@ -7,13 +7,12 @@ Rails.application.routes.draw do
         resources :scenes, only: [:index, :create, :update, :destroy] do
           put :update_order, on: :collection
         end
-        post :clone, on: :member
-      end
 
-      resources :scenes, only: [] do
-        resources :scene_actions, only: [:index, :create, :update, :destroy] do
+        resources :questions, only: [:index, :create, :update, :destroy] do
           put :update_order, on: :collection
         end
+
+        post :clone, on: :member
       end
     end
   end

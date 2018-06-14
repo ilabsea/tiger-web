@@ -17,6 +17,7 @@ RSpec.describe Story do
   it { is_expected.to have_many(:story_tags).dependent(:destroy) }
   it { is_expected.to have_many(:tags).through(:story_tags) }
   it { is_expected.to have_many(:scenes).dependent(:destroy) }
+  it { is_expected.to have_many(:questions).dependent(:destroy) }
   it { is_expected.to belong_to(:user) }
   it { is_expected.to accept_nested_attributes_for(:tags) }
   it { is_expected.to validate_presence_of(:title)}
