@@ -4,7 +4,9 @@ class StorySerializer < ActiveModel::Serializer
   attributes :id, :title, :description, :image, :author, :source_link,
              :status, :user_id, :actived, :reason, :user, :published_at, :tags
 
-  has_many :tags
+  def tags
+    object.tags.map {|tag| {id: tag.id, title: tag.title}}
+  end
 
   def image
     object.image.try(:url)
