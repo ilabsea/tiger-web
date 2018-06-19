@@ -4,6 +4,7 @@ FactoryBot.define do
     description { FFaker::Book.description }
     status      'new'
     image       { Rack::Test::UploadedFile.new(Rails.root.join('spec', 'support', 'stories', 'story1.png'), 'image/png') }
+    author      { FFaker::Name.name }
     user
 
     trait :with_scene_and_actions do

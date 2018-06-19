@@ -29,7 +29,7 @@ class Story < ApplicationRecord
   has_many :story_downloads, dependent: :destroy
   has_many :story_reads, dependent: :destroy
 
-  STATUSED = %w[new published unpublished archived].freeze
+  STATUSED = %w[new pending published unpublished archived].freeze
 
   accepts_nested_attributes_for :tags
 
@@ -77,6 +77,6 @@ class Story < ApplicationRecord
   end
 
   def set_author
-    self.author ||= user.email.split('@').first
+    self.author ||= !!user && user.email.split('@').first
   end
 end

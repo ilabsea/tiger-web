@@ -8,7 +8,7 @@ RSpec.describe User do
   describe "#regenerate_authentication_token" do
     let(:user) { FactoryBot.create(:user, email: 'test@tiger.kape', password: 'password') }
     it "generates a unique token" do
-      Devise.stub(:friendly_token).and_return("auniquetoken123")
+      allow(Devise).to receive(:friendly_token).and_return("auniquetoken123")
       user.regenerate_authentication_token
       expect(user.authentication_token).to eq "auniquetoken123"
     end
