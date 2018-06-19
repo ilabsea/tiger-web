@@ -30,8 +30,8 @@ RSpec.describe Story do
       expect(story.save).to eq true
     end
 
-    it 'accepts unpublished' do
-      story.status = 'unpublished'
+    it 'accepts rejected' do
+      story.status = 'rejected'
       expect(story.save).to eq true
     end
 

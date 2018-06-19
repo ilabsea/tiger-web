@@ -13,7 +13,7 @@ class Ability
     can :read, Question
 
     if user.present?
-      can :manage, Story, user_id: user.id, status: %w[new pending published rejected deactivated]
+      can :manage, Story, user_id: user.id, status: %w[new pending published rejected]
       can :manage, Scene
       can :manage, SceneAction
       can :manage, Question
