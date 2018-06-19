@@ -29,7 +29,7 @@ class Story < ApplicationRecord
   has_many :story_downloads, dependent: :destroy
   has_many :story_reads, dependent: :destroy
 
-  STATUSED = %w[new pending published unpublished archived].freeze
+  STATUSED = %w[new pending published rejected archived].freeze
 
   accepts_nested_attributes_for :tags
 
@@ -64,6 +64,14 @@ class Story < ApplicationRecord
         story_tag.destroy
       end
     end
+  end
+
+  def self.filter(params)
+    relation = all
+    relation = relation.where(status: params[:status]) if params[:status].present?
+    relation = relation.where(actived: params[:actived]) if params[:actived].present?
+    relation = relation.order('created_at desc')
+    relation
   end
 
   private

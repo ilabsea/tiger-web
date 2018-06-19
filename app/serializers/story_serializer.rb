@@ -5,7 +5,7 @@ class StorySerializer < ActiveModel::Serializer
              :status, :user_id, :actived, :reason, :user, :published_at, :tags
 
   def tags
-    object.tags.map {|tag| {id: tag.id, title: tag.title}}
+    object.tags.map { |tag| { id: tag.id, title: tag.title } }
   end
 
   def image
