@@ -1,69 +1,30 @@
 # frozen_string_literal: true
 
 class StoryChart
-  attr_reader :options
+  def self.chart_of(options = {})
+    tag_id = options[:tag_id] || nil
+    from = options[:from].to_date.beginning_of_day
+    to = options[:to].to_date.at_end_of_day
 
-  def initialize(options = {})
-    @options = options
-    @options[:period] ||= 7
-    @options[:period_unit] ||= 'days'
-  end
-
-  def data
-    return group_by_month if %w[month months].include?(options[:period_unit].downcase)
-    return group_by_custom if options[:period_unit].casecmp('custom').zero?
-
-    group_by_day
+    chart_data(from, to, tag_id)
   end
 
   private
 
-  def group_by_month
-    from = options[:period].to_i.months.ago.beginning_of_month
-    to = Time.zone.now.beginning_of_month - 1.day
+  def self.chart_data(from, to, tag_id = nil)
+    datas = []
 
-    data_by_month(from, to)
-  end
-
-  def group_by_custom
-    from = options[:from].to_date.beginning_of_day
-    to = options[:to].to_date.at_end_of_day
-
-    data_by_day(from, to)
-  end
-
-  def group_by_day
-    from = options[:period].to_i.days.ago.beginning_of_day
-    to = 1.day.ago.at_end_of_day
-
-    data_by_day(from, to)
-  end
-
-  def data_by_month(from, to)
-    downloads = StoryDownload.group_by_month(:created_at, format: '%b %Y', range: from..to).count
-    reads = StoryRead.group_by_month(:created_at, format: '%b %Y', range: from..to).count
-
-    format_data(downloads, reads)
-  end
-
-  def data_by_day(from, to)
-    downloads = StoryDownload.group_by_day(:created_at, format: '%B %d, %Y', range: from..to).count
-    reads = StoryRead.group_by_day(:created_at, format: '%B %d, %Y', range: from..to).count
-
-    format_data(downloads, reads)
-  end
-
-  def format_data(downloads, reads)
-    arr = []
+    downloads = StoryDownload.chart_of(from, to, tag_id)
+    reads = StoryRead.chart_of(from, to, tag_id)
 
     downloads.each do |key, value|
-      arr.push(
+      datas.push(
         date: key,
         story_downloads: value,
         story_reads: reads[key]
       )
     end
 
-    arr
+    datas
   end
 end

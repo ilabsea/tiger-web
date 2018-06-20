@@ -7,15 +7,15 @@ module Api
 
       def show
         tags = Tag.joins(:story_tags).group('story_tags.tag_id')
-        story_chart = StoryChart.new(data_params)
+        story_chart = StoryChart.chart_of(data_params)
 
-        render json: story_chart.data, meta: { tags: tags }, root: 'data', status: :ok
+        render json: story_chart, meta: { tags: tags }, root: 'data', status: :ok
       end
 
       private
 
       def data_params
-        params.permit(:tag_id, :period, :period_unit, :from, :to)
+        params.permit(:tag_id, :from, :to)
       end
     end
   end

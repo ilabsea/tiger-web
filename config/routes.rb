@@ -17,7 +17,7 @@ Rails.application.routes.draw do
       end
 
       resource :chart, only: [:show]
-      resources :story_downloads, only: [:create]
+      resources :story_downloads, only: [:index]
       resources :story_reads, only: [:create]
       resources :tags, only: [:index]
 
