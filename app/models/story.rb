@@ -24,6 +24,8 @@ class Story < ApplicationRecord
   has_many :scenes, dependent: :destroy
   has_many :scene_actions, dependent: :destroy
   has_many :questions, dependent: :destroy
+  has_many :story_downloads, dependent: :destroy
+  has_many :story_reads, dependent: :destroy
 
   STATUSED = %w[new published unpublished archived].freeze
 
@@ -40,6 +42,7 @@ class Story < ApplicationRecord
 
   scope :actives, -> { where(actived: true) }
   scope :exclude_archives, -> { where.not(status: 'archived').order('created_at desc') }
+  scope :exclude_news, -> { where.not(status: 'new') }
 
   def tags_attributes=(attributes)
     attributes.each do |attribute|

@@ -21,6 +21,7 @@ class StoryContentDuplicator
     clone_tags
     clone_scenes
     clone_scene_actions
+    clone_questions
   end
 
   def clone_self
@@ -53,14 +54,33 @@ class StoryContentDuplicator
       master_scene.scene_actions.each do |master_action|
         hash = clean_attributes(master_action)
 
-        child_link_scene = @child.scenes.find_by(name: master_action.link_scene.name)
         child_scene = @child.scenes.find_by(name: master_scene.name)
-
         action = child_scene.scene_actions.new(hash)
-        action.link_scene_id = child_link_scene.id
         action.story_id = @child.id
+
+        unless action.use_next
+          child_link_scene = @child.scenes.find_by(name: master_action.link_scene.name)
+          action.link_scene_id = child_link_scene.id
+        end
+
         action.save
       end
+    end
+  end
+
+  def clone_questions
+    master.questions.each do |master_question|
+      hash = clean_attributes(master_question)
+
+      question = @child.questions.create(hash)
+      clone_choices(question, master_question)
+    end
+  end
+
+  def clone_choices(question, master_question)
+    master_question.choices.each do |choice|
+      hash = clean_attributes(choice)
+      question.choices.create(hash)
     end
   end
 
@@ -74,7 +94,7 @@ class StoryContentDuplicator
 
   def except_attributes
     %w[
-      id image story_id scene_id image status actived
+      id image story_id scene_id image status actived question_id
       parent_id lft rgt depth children_count link_scene_id
       created_at updated_at
     ]

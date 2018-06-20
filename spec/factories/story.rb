@@ -20,6 +20,16 @@ FactoryBot.define do
       end
     end
 
+    trait :with_questions_and_choices do
+      transient do
+        questions_count 3
+      end
+
+      after(:create) do |story, evaluator|
+        create_list(:question, evaluator.questions_count, :with_choices, story: story)
+      end
+    end
+
     trait :with_tags do
       transient do
         tags_count 2

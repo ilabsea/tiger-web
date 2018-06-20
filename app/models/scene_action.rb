@@ -14,11 +14,11 @@
 #
 
 class SceneAction < ApplicationRecord
-  belongs_to :scene
+  belongs_to :scene, optional: true
   belongs_to :story
   belongs_to :link_scene, class_name: 'Scene', foreign_key: :link_scene_id, optional: true
 
-  validates :name, :scene_id, :story_id, presence: true
+  validates :name, :story_id, presence: true
 
   default_scope { order(display_order: :asc) }
 end

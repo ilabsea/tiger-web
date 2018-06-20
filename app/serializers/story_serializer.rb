@@ -8,4 +8,5 @@ class StorySerializer < ActiveModel::Serializer
   end
 
   has_many :tags
+  has_one :user
 end
