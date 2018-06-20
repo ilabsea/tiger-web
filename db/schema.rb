@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180508070741) do
+ActiveRecord::Schema.define(version: 20180608014000) do
 
   create_table "choices", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "label"
@@ -26,6 +26,12 @@ ActiveRecord::Schema.define(version: 20180508070741) do
     t.integer "display_order"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "quiz_responses", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "question_id"
+    t.integer "choice_id"
+    t.integer "story_read_id"
   end
 
   create_table "scene_actions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -47,6 +53,7 @@ ActiveRecord::Schema.define(version: 20180508070741) do
     t.integer "story_id"
     t.boolean "visible_name", default: true
     t.boolean "image_as_background", default: false
+    t.boolean "is_end", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["lft"], name: "index_scenes_on_lft"
@@ -63,6 +70,8 @@ ActiveRecord::Schema.define(version: 20180508070741) do
     t.boolean "actived", default: true
     t.text "reason"
     t.datetime "published_at"
+    t.string "author"
+    t.string "source_link"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["title", "user_id"], name: "index_stories_on_title_and_user_id"
@@ -77,9 +86,17 @@ ActiveRecord::Schema.define(version: 20180508070741) do
 
   create_table "story_reads", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "story_id"
+    t.datetime "finished_at"
+    t.boolean "quiz_finished"
     t.string "user_uuid"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "story_responses", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "scene_id"
+    t.integer "scene_action_id"
+    t.integer "story_read_id"
   end
 
   create_table "story_tags", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -93,6 +110,7 @@ ActiveRecord::Schema.define(version: 20180508070741) do
 
   create_table "tags", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "title"
+    t.string "color"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

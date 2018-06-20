@@ -7,7 +7,7 @@
 # server "example.com", user: "deploy", roles: %w{app web}, other_property: :other_value
 # server "db.example.com", user: "deploy", roles: %w{db}
 
-server_address = "192.168.1.108"
+server_address = "192.168.1.249"
 
 # role-based syntax
 # ==================
@@ -19,7 +19,7 @@ server_address = "192.168.1.108"
 
 # role :app, %w{deploy@example.com}, my_property: :my_value
 # role :web, %w{user1@primary.com user2@additional.com}, other_property: :other_value
-role :db,  "root@#{server_address}"
+role :db,  "tiger@#{server_address}"
 
 
 
@@ -41,20 +41,20 @@ role :db,  "root@#{server_address}"
 #
 # Global options
 # --------------
-#  set :ssh_options, {
-#    keys: %w(/home/rlisowski/.ssh/id_rsa),
-#    forward_agent: false,
-#    auth_methods: %w(password)
-#  }
+set :ssh_options, {
+  user: "tiger",
+  keys: %w(~/.ssh/id_rsa),
+  forward_agent: true
+}
 #
 # The server-based syntax can be used to override options:
 # ------------------------------------
-server "192.168.1.108",
-  user: "tiger",
-  roles: %w{web app},
-  ssh_options: {
-    user: "tiger", # overrides user setting above
-    keys: %w(~/.ssh/id_rsa),
-    forward_agent: false,
-    auth_methods: %w(publickey)
-  }
+# server "192.168.1.249",
+#   user: "tiger",
+#   roles: %w{web app},
+#   ssh_options: {
+#     user: "tiger", # overrides user setting above
+#     keys: %w(~/.ssh/id_rsa),
+#     forward_agent: false,
+#     auth_methods: %w(publickey)
+#   }

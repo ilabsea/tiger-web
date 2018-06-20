@@ -9,6 +9,9 @@ class CreateStories < ActiveRecord::Migration[5.1]
       t.boolean :actived, default: true
       t.text :reason
       t.datetime :published_at
+      t.string :author
+      t.string :source_link
+
       t.timestamps null: false
     end
     add_index :stories, [:title, :user_id]

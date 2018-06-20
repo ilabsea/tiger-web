@@ -1,12 +1,20 @@
 # frozen_string_literal: true
 
 class StorySerializer < ActiveModel::Serializer
-  attributes :id, :title, :description, :image, :status, :user_id, :actived, :reason
+  attributes :id, :title, :description, :image, :author, :source_link,
+             :status, :user_id, :actived, :reason, :user, :published_at, :tags
+
+  def tags
+    object.tags.map { |tag| { id: tag.id, title: tag.title } }
+  end
 
   def image
     object.image.try(:url)
   end
 
-  has_many :tags
-  has_one :user
+  def user
+    {
+      email: object.user.email
+    }
+  end
 end

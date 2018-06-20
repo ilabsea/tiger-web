@@ -11,7 +11,7 @@ set :rbenv_map_bins, %w{rake gem bundle ruby rails}
 set :rbenv_roles, :all # default value
 
 # Default branch is :master
-set :branch, :dashboard
+set :branch, :statistic
 
 # Default deploy_to directory is /var/www/my_app_name
 set :deploy_to, "/var/www/tiger-web"

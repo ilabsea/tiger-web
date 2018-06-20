@@ -10,6 +10,7 @@ class CreateScenes < ActiveRecord::Migration[5.1]
       t.integer :story_id
       t.boolean :visible_name, default: true
       t.boolean :image_as_background, default: false
+      t.boolean :is_end, default: false
 
       t.timestamps null: false
     end

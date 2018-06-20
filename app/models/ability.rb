@@ -7,8 +7,13 @@ class Ability
     # Define abilities for the passed in user here. For example:
 
     user ||= User.new # guest user (not logged in)
+
+    can :read, Story, status: %(published)
+    can :read, Scene
+    can :read, Question
+
     if user.present?
-      can :manage, Story, user_id: user.id, status: %w[new published unpublished]
+      can :manage, Story, user_id: user.id, status: %w[new pending published rejected]
       can :manage, Scene
       can :manage, SceneAction
       can :manage, Question

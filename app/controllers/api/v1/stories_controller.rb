@@ -4,10 +4,11 @@ module Api
   module V1
     class StoriesController < ApiController
       load_resource only: :index
+      skip_before_action :authenticate_with_token!, only: :index
       authorize_resource
 
       def index
-        @stories = @stories.order('created_at desc').page(params[:page]).per(params[:per_page])
+        @stories = @stories.filter(params).includes(:user, :tags).page(params[:page]).per(params[:per_page])
 
         render json: @stories, meta: pagination(@stories)
       end
@@ -58,7 +59,10 @@ module Api
 
       def story_params
         params[:my_story] ||= JSON.parse(params['data'])
-        params[:my_story].require(:story).permit(:id, :title, :description, :actived, :reason, :status, :image, tags_attributes: %i[id title _destroy])
+        params[:my_story].require(:story).permit(
+          :id, :title, :description, :actived, :author, :source_link, :published_at,
+          :reason, :status, :image, tags_attributes: %i[id title _destroy]
+        )
       end
     end
   end

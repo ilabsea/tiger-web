@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class SceneSerializer < ActiveModel::Serializer
-  attributes :id, :name, :description, :story_id, :image,
+  attributes :id, :name, :description, :story_id, :image, :is_end,
              :visible_name, :image_as_background, :default_image
 
   has_many :scene_actions
@@ -11,6 +11,6 @@ class SceneSerializer < ActiveModel::Serializer
   end
 
   def default_image
-    ActionController::Base.helpers.image_url("default.jpg")
+    ActionController::Base.helpers.image_url('default.jpg')
   end
 end

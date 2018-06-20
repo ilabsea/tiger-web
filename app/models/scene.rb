@@ -4,16 +4,19 @@
 #
 # Table name: scenes
 #
-#  id          :integer          not null, primary key
-#  name        :string(255)
-#  description :text(65535)
-#  image       :string(255)
-#  parent_id   :integer
-#  lft         :integer          not null
-#  rgt         :integer          not null
-#  story_id    :integer
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
+#  id                  :integer          not null, primary key
+#  name                :string(255)
+#  description         :text(65535)
+#  image               :string(255)
+#  parent_id           :integer
+#  lft                 :integer          not null
+#  rgt                 :integer          not null
+#  story_id            :integer
+#  visible_name        :boolean          default(TRUE)
+#  image_as_background :boolean          default(FALSE)
+#  is_end              :boolean          default(FALSE)
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
 #
 
 class Scene < ApplicationRecord
@@ -27,7 +30,7 @@ class Scene < ApplicationRecord
 
   mount_uploader :image, ImageUploader
 
-  acts_as_nested_set dependent: :destroy
+  acts_as_nested_set dependent: :destroy, scope: [:story_id]
 
   accepts_nested_attributes_for :scene_actions, allow_destroy: true, reject_if: ->(a) { a[:name].blank? }
 

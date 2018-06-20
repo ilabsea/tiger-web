@@ -25,6 +25,9 @@ require 'rspec/rails'
 
 # Checks for pending migrations and applies them before tests are run.
 # If you are not using ActiveRecord, you can remove this line.
+ActiveRecord::Base.default_timezone = :utc
+ActiveRecord::Base.time_zone_aware_attributes = true
+
 ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|

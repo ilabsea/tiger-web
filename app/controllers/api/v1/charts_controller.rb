@@ -9,7 +9,7 @@ module Api
         tags = Tag.joins(:story_tags).group('story_tags.tag_id')
         story_chart = StoryChart.new(data_params)
 
-        render json: story_chart.data, meta: {tags: tags}, root: 'data', status: :ok
+        render json: story_chart.data, meta: { tags: tags }, root: 'data', status: :ok
       end
 
       private
