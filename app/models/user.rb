@@ -31,6 +31,7 @@ class User < ApplicationRecord
 
   enum role: %i[admin publisher]
   after_initialize :set_default_role, if: :new_record?
+  after_initialize :set_default_status, if: :new_record?
 
   scope :all_except, ->(user) { where.not(id: user).order('updated_at desc') }
 
@@ -44,20 +45,26 @@ class User < ApplicationRecord
     self.role ||= :publisher
   end
 
+  def set_default_status
+    self.status ||= :pending
+  end
+
   def soft_delete
-    update_attribute(:deleted_at, Time.current)
+    update_attributes({deleted_at: Time.current, status: :inactived})
   end
 
   def active_for_authentication?
-    super && !deleted_at?
-  end
-
-  def status
-    deleted_at ? 'inactive' : 'active'
+    super && (!deleted_at? && status != 'pending')
   end
 
   def regenerate_authentication_token
     self.authentication_token = Devise.friendly_token
     self.token_expired_date = ENV['TOKEN_EXPIRED_IN_MONTH'].to_i.month.from_now
+  end
+
+  def self.filter(params)
+    relation = all
+    relation = relation.where(status: params[:status]) if params[:status].present?
+    relation
   end
 end

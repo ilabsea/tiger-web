@@ -12,7 +12,7 @@ module Api
 
         if user&.valid_password?(user_password)
           unless user.active_for_authentication?
-            render json: { errors: 'Your account has been deactivated!' }, status: :unprocessable_entity
+            render json: { errors: 'Your account is unprocessable!' }, status: :unprocessable_entity
             return
           end
 

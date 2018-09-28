@@ -8,9 +8,12 @@ class Ability
 
     user ||= User.new # guest user (not logged in)
 
-    can :read, Story, status: %(published)
-    can :read, Scene
-    can :read, Question
+    if user.new_record?
+      can :create, User, status: %(pending)
+      can :read, Story, status: %(published)
+      can :read, Scene
+      can :read, Question
+    end
 
     if user.present?
       can :manage, Story, user_id: user.id, status: %w[new pending published rejected]
