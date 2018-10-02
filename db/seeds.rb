@@ -10,9 +10,13 @@
 user = User.find_or_initialize_by(email: 'admin@ilabsea.org', role: :admin)
 user.password = 'password'
 user.password_confirmation = 'password'
-user.save
+user.status = 'actived'
+user.skip_confirmation!
+user.save!
 
 user = User.find_or_initialize_by(email: 'sokly@gmail.com', role: :publisher)
 user.password = 'password'
 user.password_confirmation = 'password'
-user.save
+user.status = 'actived'
+user.skip_confirmation!
+user.save!
