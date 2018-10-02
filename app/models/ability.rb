@@ -15,15 +15,15 @@ class Ability
       can :read, Question
     end
 
-    if user.present?
-      can :manage, Story, user_id: user.id, status: %w[new pending published rejected]
-      can :manage, Scene
-      can :manage, SceneAction
-      can :manage, Question
-      can :manage, Choice
+    return unless user.present?
 
-      can :manage, :all if user.admin?
-    end
+    can :manage, Story, user_id: user.id, status: %w[new pending published rejected]
+    can :manage, Scene
+    can :manage, SceneAction
+    can :manage, Question
+    can :manage, Choice
+
+    can :manage, :all if user.admin?
 
     # The first argument to `can` is the action you are giving the user
     # permission to do.

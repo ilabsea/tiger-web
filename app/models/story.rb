@@ -39,7 +39,7 @@ class Story < ApplicationRecord
 
   validates :status, inclusion: { in: STATUSED }
   validates :title, presence: true, uniqueness: { case_sensitive: false }
-  validates :source_link, format: { with: /\A^(https?\:\/\/)?[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,6}((\/|\?)\S*)?$\z/ }, allow_blank: true
+  validates :source_link, format: { with: %r(\A^(https?\:\/\/)?[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,6}((\/|\?)\S*)?$\z) }, allow_blank: true
 
   scope :actives, -> { where(actived: true) }
   scope :exclude_archives, -> { where.not(status: 'archived').order('created_at desc') }

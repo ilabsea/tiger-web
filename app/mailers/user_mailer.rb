@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class UserMailer < ApplicationMailer
-  def confirmation_instructions(user, token, opts={})
+  def confirmation_instructions(user, token, _opts = {})
     @user = user
     @token = token
 
