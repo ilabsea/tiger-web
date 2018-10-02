@@ -9,8 +9,6 @@ class StoryChart
     chart_data(from, to, tag_id)
   end
 
-  private
-
   def self.chart_data(from, to, tag_id = nil)
     datas = []
 

@@ -1,9 +1,10 @@
+# frozen_string_literal: true
+
 class UserMailer < ApplicationMailer
-  default from: "railscasts@example.com"
-
-  def signup_confirmation(user)
+  def confirmation_instructions(user, token, opts={})
     @user = user
+    @token = token
 
-    mail to: user.email, subject: "Sign Up Confirmation"
+    mail to: user.email, subject: 'Tiger Sign Up Confirmation'
   end
 end

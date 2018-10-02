@@ -24,7 +24,7 @@ class StoryRead < ApplicationRecord
 
   scope :by_story, ->(story_id) { where(story_id: story_id) if story_id.present? }
 
-  def self.between from_date, to_date
+  def self.between(from_date, to_date)
     where(created_at: [from_date..to_date])
   end
 

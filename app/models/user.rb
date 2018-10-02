@@ -25,9 +25,9 @@
 
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
+  # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :recoverable, :rememberable,
-         :trackable, :validatable
+         :trackable, :validatable, :confirmable
 
   enum role: %i[admin publisher]
   after_initialize :set_default_role, if: :new_record?
@@ -50,7 +50,7 @@ class User < ApplicationRecord
   end
 
   def soft_delete
-    update_attributes({deleted_at: Time.current, status: :inactived})
+    update_attributes(deleted_at: Time.current, status: :inactived)
   end
 
   def active_for_authentication?

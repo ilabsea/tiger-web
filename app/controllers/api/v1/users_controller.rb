@@ -14,6 +14,7 @@ module Api
       def create
         user = User.new(user_params)
         authorize! :create, user
+        user.skip_confirmation_notification!
 
         if user.save
           render json: user, status: :created

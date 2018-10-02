@@ -6,6 +6,7 @@ development:
   <<: *default
   GMAIL_USERNAME: 'example@gmail.com'
   GMAIL_PASSWORD: 'password'
+  DOMAIN: 'http://example.com'
 
 test:
   <<: *default

@@ -4,6 +4,7 @@ Rails.application.routes.draw do
       root 'users#index'
       resources :users
       resources :sessions, only: [:create, :destroy]
+      resources :confirmations, only: [:create]
       resources :stories, only: [:index, :create, :update, :destroy] do
         resources :scenes, only: [:index, :create, :update, :destroy] do
           put :update_order, on: :collection

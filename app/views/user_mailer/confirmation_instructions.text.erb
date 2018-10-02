@@ -1,0 +1,6 @@
+Welcome <%= @user.email %>!,
+
+You can confirm your account email through the link below:
+
+<%= link_to 'Confirm my account', "#{ENV['DOMAIN']}/confirm_email?confirmation_token=#{@token}"
+

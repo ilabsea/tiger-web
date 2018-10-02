@@ -85,6 +85,6 @@ class Story < ApplicationRecord
   end
 
   def set_author
-    self.author ||= !!user && user.email.split('@').first
+    self.author ||= user.present? && user.email.split('@').first
   end
 end

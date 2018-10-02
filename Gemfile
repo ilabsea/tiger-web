@@ -28,7 +28,7 @@ gem 'jbuilder', '~> 2.5'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
-gem 'devise'
+gem 'devise', '~> 4.4.3'
 gem 'breadcrumbs_on_rails'
 gem 'cancancan'
 gem 'kaminari', '~> 1.1', '>= 1.1.1'
@@ -89,3 +89,6 @@ gem 'groupdate', '~> 4.0.1'
 
 gem 'axlsx', git: 'https://github.com/randym/axlsx.git', ref: 'c8ac844'
 gem 'axlsx_rails'
+
+gem 'rails-observers', '~> 0.1.5'
+gem 'sidekiq', '~> 5.2.2'

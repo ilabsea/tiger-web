@@ -116,6 +116,7 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     concurrent-ruby (1.0.5)
+    connection_pool (2.2.2)
     crass (1.0.3)
     database_cleaner (1.6.2)
     devise (4.4.3)
@@ -205,6 +206,8 @@ GEM
     puma (3.11.3)
     rack (2.0.4)
     rack-cors (0.4.1)
+    rack-protection (2.0.4)
+      rack
     rack-test (1.0.0)
       rack (>= 1.0, < 3)
     rails (5.1.5)
@@ -224,6 +227,8 @@ GEM
       nokogiri (>= 1.6)
     rails-html-sanitizer (1.0.4)
       loofah (~> 2.2, >= 2.2.2)
+    rails-observers (0.1.5)
+      activemodel (>= 4.0)
     railties (5.1.5)
       actionpack (= 5.1.5)
       activesupport (= 5.1.5)
@@ -235,6 +240,7 @@ GEM
     rb-fsevent (0.10.3)
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
+    redis (4.0.2)
     responders (2.4.0)
       actionpack (>= 4.2.0, < 5.3)
       railties (>= 4.2.0, < 5.3)
@@ -281,6 +287,10 @@ GEM
       rubyzip (~> 1.2)
     shoulda-matchers (3.1.2)
       activesupport (>= 4.0.0)
+    sidekiq (5.2.2)
+      connection_pool (~> 2.2, >= 2.2.2)
+      rack-protection (>= 1.5.0)
+      redis (>= 3.3.5, < 5)
     spring (2.0.2)
       activesupport (>= 4.2)
     spring-watcher-listen (2.0.1)
@@ -344,7 +354,7 @@ DEPENDENCIES
   carrierwave (~> 1.0)
   coffee-rails (~> 4.2)
   database_cleaner (~> 1.6.2)
-  devise
+  devise (~> 4.4.3)
   dotenv-rails (~> 2.2.1)
   factory_bot_rails (~> 4.8.2)
   ffaker (~> 2.8.0)
@@ -359,11 +369,13 @@ DEPENDENCIES
   puma (~> 3.7)
   rack-cors (~> 0.4.0)
   rails (~> 5.1.5)
+  rails-observers (~> 0.1.5)
   rspec-rails
   rubocop (~> 0.54.0)
   sass-rails (~> 5.0)
   selenium-webdriver
   shoulda-matchers (~> 3.1.2)
+  sidekiq (~> 5.2.2)
   spring
   spring-watcher-listen (~> 2.0.0)
   strip_attributes (~> 1.8.0)

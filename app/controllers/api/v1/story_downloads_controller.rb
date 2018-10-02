@@ -21,9 +21,9 @@ module Api
         end
 
         respond_to do |format|
-          format.xlsx {
+          format.xlsx do
             response.headers['Content-Disposition'] = "attachment; filename='dashbaord-#{Time.now}.xlsx'; encoding: 'base64'"
-          }
+          end
         end
       end
 
