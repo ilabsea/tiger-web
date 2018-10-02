@@ -45,7 +45,7 @@ describe Api::V1::SessionsController do
 
     before(:each) do
       @user = FactoryBot.create :user
-      @user.skip_confirmation!
+      @user.confirm
       delete :destroy, params: {id: @user.authentication_token}
     end
 

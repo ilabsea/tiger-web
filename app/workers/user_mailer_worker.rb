@@ -2,7 +2,6 @@
 
 class UserMailerWorker
   include Sidekiq::Worker
-  # sidekiq_options queue: :mailer
 
   def perform(user_id, *_args)
     user = User.find(user_id)
