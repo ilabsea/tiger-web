@@ -32,5 +32,5 @@ Rails.application.routes.draw do
 
   post 'create_user' => 'users#create', as: :create_user
 
-  mount Sidekiq::Web => '/sidekiq'
+  mount Sidekiq::Web => '/api/v1/sidekiq'
 end
