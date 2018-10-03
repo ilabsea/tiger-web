@@ -1,3 +1,5 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
@@ -29,4 +31,6 @@ Rails.application.routes.draw do
   end
 
   post 'create_user' => 'users#create', as: :create_user
+
+  mount Sidekiq::Web => '/sidekiq'
 end

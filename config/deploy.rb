@@ -11,10 +11,12 @@ set :rbenv_map_bins, %w{rake gem bundle ruby rails}
 set :rbenv_roles, :all # default value
 
 # Default branch is :master
-set :branch, :statistic
+set :branch, :'phase-two'
 
 # Default deploy_to directory is /var/www/my_app_name
 set :deploy_to, "/var/www/tiger-web"
+
+set :pty,  false
 
 # Default value for :format is :airbrussh.
 # set :format, :airbrussh
@@ -58,3 +60,25 @@ namespace :deploy do
   end
 end
 
+namespace :sidekiq do
+  task :quiet do
+    on roles(:app) do
+      # Horrible hack to get PID without having to use terrible PID files
+      puts "Killing sidekiq-upstart process "
+      puts capture("kill -USR1 $(sudo initctl status sidekiq-upstart-main | grep /running | awk '{print $NF}') || :")
+      puts capture("sudo initctl stop sidekiq-upstart-main")
+
+      puts capture("kill -USR1 $(sudo initctl status sidekiq-upstart-cron | grep /running | awk '{print $NF}') || :")
+      puts capture("sudo initctl stop sidekiq-upstart-cron")
+
+    end
+  end
+  task :restart do
+    on roles(:app) do
+      # execute :sudo, :initctl, '--system' ,:restart, :'sidekiq-upstart'
+      puts 'Restarting sidekiq-upstart-cron project'
+      puts capture("sudo initctl start sidekiq-upstart-main")
+      puts capture("sudo initctl start sidekiq-upstart-cron")
+    end
+  end
+end
