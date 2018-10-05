@@ -40,7 +40,7 @@ module Api
       private
 
       def story_download_params
-        params.require(:story_download).permit(:story_id, :device_type)
+        params.require(:story_download).permit(:story_id, :device_type, :user_type)
       end
 
       def protected_params

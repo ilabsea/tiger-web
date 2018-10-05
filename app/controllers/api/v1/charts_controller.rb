@@ -15,7 +15,7 @@ module Api
       private
 
       def data_params
-        params.permit(:tag_id, :from, :to)
+        params.permit(:tag_id, :from, :to, :user_type)
       end
     end
   end
