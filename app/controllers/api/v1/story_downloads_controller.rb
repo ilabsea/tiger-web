@@ -5,7 +5,7 @@ module Api
     class StoryDownloadsController < ApiController
       skip_before_action :authenticate_with_token!
       authorize_resource :story, :story_download, :story_read, parent: false
-      before_action :set_period
+      before_action :set_period, only: :index
 
       def index
         if protected_params[:tag_id].present?
@@ -27,7 +27,21 @@ module Api
         end
       end
 
+      def create
+        story_download = StoryDownload.new(story_download_params)
+
+        if story_download.save
+          render json: story_download, status: :created
+        else
+          render json: story_download.errors, status: :unprocessable_entity
+        end
+      end
+
       private
+
+      def story_download_params
+        params.require(:story_download).permit(:story_id, :device_type)
+      end
 
       def protected_params
         params.permit(:from, :to, :tag_id)
