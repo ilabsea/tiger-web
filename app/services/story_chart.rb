@@ -10,7 +10,7 @@ class StoryChart
     chart_data(from, to, tag_id: tag_id, user_type: user_type)
   end
 
-  def self.chart_data(from, to, options={})
+  def self.chart_data(from, to, options = {})
     datas = []
     downloads = StoryDownload.chart_of(from, to, options)
     reads = StoryRead.chart_of(from, to, options)

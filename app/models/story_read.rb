@@ -28,7 +28,7 @@ class StoryRead < ApplicationRecord
     where(created_at: [from_date..to_date])
   end
 
-  def self.chart_of(from, to, options={})
+  def self.chart_of(from, to, options = {})
     story_reads = all
     story_reads = story_reads.where(story_id: StoryTag.where(tag_id: options[:tag_id]).select(:story_id)) if options[:tag_id].present?
     story_reads = story_reads.where(user_type: options[:user_type]) if options[:user_type].present?
