@@ -11,6 +11,9 @@ before_script:
   - cp config/application.yml.example config/application.yml
   - cp config/database.yml.example config/database.yml
   - mysql -e 'create database tiger_test'
+  - echo 'Canada/Pacific' | sudo tee /etc/timezone
+  - sudo dpkg-reconfigure --frontend noninteractive tzdata
+  - sudo ntpdate ntp.ubuntu.com
 bundler_args: --binstubs=./bundler_stubs
 
 after_success:
