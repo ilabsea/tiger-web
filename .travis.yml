@@ -11,8 +11,9 @@ before_script:
   - cp config/application.yml.example config/application.yml
   - cp config/database.yml.example config/database.yml
   - mysql -e 'create database tiger_test'
-  - echo 'Canada/Pacific' | sudo tee /etc/timezone
-  - sudo dpkg-reconfigure --frontend noninteractive tzdata
+
+before_install:
+- export TZ=Australia/Canberra
 
 bundler_args: --binstubs=./bundler_stubs
 
