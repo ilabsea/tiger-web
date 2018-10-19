@@ -13,7 +13,7 @@ before_script:
   - mysql -e 'create database tiger_test'
   - echo 'Canada/Pacific' | sudo tee /etc/timezone
   - sudo dpkg-reconfigure --frontend noninteractive tzdata
-  - sudo ntpdate ntp.ubuntu.com
+
 bundler_args: --binstubs=./bundler_stubs
 
 after_success:
