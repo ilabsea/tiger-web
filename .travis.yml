@@ -13,7 +13,7 @@ before_script:
   - mysql -e 'create database tiger_test'
 
 before_install:
-- export TZ=Australia/Canberra
+  - export TZ=Australia/Canberra
 
 bundler_args: --binstubs=./bundler_stubs
 
