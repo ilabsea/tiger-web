@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class StorySerializer < ActiveModel::Serializer
-  attributes :id, :title, :description, :image, :author, :source_link,
+  attributes :id, :title, :description, :image, :author, :source_link, :license,
              :status, :user_id, :actived, :reason, :user, :published_at, :tags
 
   def tags

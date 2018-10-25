@@ -17,6 +17,7 @@
 #  source_link  :string(255)
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
+#  license      :string(255)
 #
 
 class Story < ApplicationRecord
@@ -30,6 +31,12 @@ class Story < ApplicationRecord
   has_many :story_reads, dependent: :destroy
 
   STATUSED = %w[new pending published rejected archived].freeze
+  LICENSES = [
+    'Creative Commons license family - cc',
+    'Creative Commons Zero v1.0 Universal - cc0-1.0',
+    'Creative Commons Attribution 4.0 - cc-by-4.0',
+    'Creative Commons Attribution Share Alike 4.0 - cc-by-sa-4.0'
+  ].freeze
 
   accepts_nested_attributes_for :tags
 
@@ -37,6 +44,7 @@ class Story < ApplicationRecord
 
   mount_uploader :image, ImageUploader
 
+  validates :license, presence: true, inclusion: { in: LICENSES }
   validates :status, inclusion: { in: STATUSED }
   validates :title, presence: true, uniqueness: { case_sensitive: false }
   validates :source_link, format: { with: %r(\A^(https?\:\/\/)?[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,6}((\/|\?)\S*)?$\z) }, allow_blank: true
