@@ -10,4 +10,12 @@ class HomeController < ApplicationController
       type: "application/pdf"
     )
   end
+
+  def download_mobile_guide
+    send_file(
+      "#{Rails.root}/public/mobile_guide.pdf",
+      filename: "web_guide.pdf",
+      type: "application/pdf"
+    )
+  end
 end
