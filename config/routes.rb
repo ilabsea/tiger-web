@@ -32,6 +32,7 @@ Rails.application.routes.draw do
 
   post 'create_user' => 'users#create', as: :create_user
 
+  match 'download_web_guide', to: 'home#download_web_guide', via: :get
 
   Sidekiq::Web.use Rack::Auth::Basic do |username, password|
     ActiveSupport::SecurityUtils.secure_compare(::Digest::SHA256.hexdigest(username), ::Digest::SHA256.hexdigest(ENV["SIDEKIQ_USERNAME"])) &
