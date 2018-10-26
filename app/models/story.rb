@@ -82,6 +82,10 @@ class Story < ApplicationRecord
     relation
   end
 
+  def self.licenses
+    LICENSES
+  end
+
   private
 
   def set_default_status
