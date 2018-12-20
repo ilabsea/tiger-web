@@ -32,10 +32,12 @@ class Story < ApplicationRecord
 
   STATUSED = %w[new pending published rejected archived].freeze
   LICENSES = [
-    'Creative Commons license family - cc',
-    'Creative Commons Zero v1.0 Universal - cc0-1.0',
-    'Creative Commons Attribution 4.0 - cc-by-4.0',
-    'Creative Commons Attribution Share Alike 4.0 - cc-by-sa-4.0'
+    'Attribution 4.0 International (CC BY 4.0)',
+    'Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)',
+    'Attribution-NoDerivatives 4.0 International (CC BY-ND 4.0)',
+    'Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)',
+    'Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)',
+    'Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)'
   ].freeze
 
   accepts_nested_attributes_for :tags
