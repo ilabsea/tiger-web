@@ -10,6 +10,7 @@ RSpec.describe Story do
   it { is_expected.to belong_to(:user) }
   it { is_expected.to accept_nested_attributes_for(:tags) }
   it { is_expected.to validate_presence_of(:title)}
+  it { is_expected.to validate_presence_of(:license)}
   it { is_expected.to validate_uniqueness_of(:title).case_insensitive }
 
   it 'before_validation, sets default status as new' do

@@ -61,7 +61,7 @@ module Api
         params[:my_story] ||= JSON.parse(params['data'])
         params[:my_story].require(:story).permit(
           :id, :title, :description, :actived, :author, :source_link, :published_at,
-          :reason, :status, :image, tags_attributes: %i[id title _destroy]
+          :license, :reason, :status, :image, tags_attributes: %i[id title _destroy]
         )
       end
     end

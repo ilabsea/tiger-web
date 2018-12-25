@@ -28,7 +28,7 @@ gem 'jbuilder', '~> 2.5'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
-gem 'devise'
+gem 'devise', '~> 4.4.3'
 gem 'breadcrumbs_on_rails'
 gem 'cancancan'
 gem 'kaminari', '~> 1.1', '>= 1.1.1'
@@ -70,7 +70,10 @@ group :development do
   gem 'annotate', '~> 2.7.2'
   gem 'rubocop', '~> 0.54.0', require: false
   gem 'capistrano', '~> 3.10', require: false
+  # for ec-2 user rvm
+  gem 'capistrano-rvm', '~>0.1.1'
   gem 'capistrano-rails',       '~> 1.3.1', require: false
+  # for local server user rbenv
   gem 'capistrano-rbenv',       '~> 2.1.3'
   gem 'capistrano-bundler',     '~> 1.3.0'
   gem 'capistrano-passenger',   '~> 0.2.0'
@@ -89,3 +92,6 @@ gem 'groupdate', '~> 4.0.1'
 
 gem 'axlsx', git: 'https://github.com/randym/axlsx.git', ref: 'c8ac844'
 gem 'axlsx_rails'
+
+gem 'rails-observers', '~> 0.1.5'
+gem 'sidekiq', '~> 5.2.2'

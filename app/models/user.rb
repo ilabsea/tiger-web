@@ -15,6 +15,11 @@
 #  last_sign_in_at        :datetime
 #  current_sign_in_ip     :string(255)
 #  last_sign_in_ip        :string(255)
+#  status                 :string(255)
+#  confirmation_token     :string(255)
+#  confirmed_at           :datetime
+#  confirmation_sent_at   :datetime
+#  unconfirmed_email      :string(255)
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  role                   :integer
@@ -25,12 +30,13 @@
 
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
+  # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :recoverable, :rememberable,
-         :trackable, :validatable
+         :trackable, :validatable, :confirmable
 
   enum role: %i[admin publisher]
   after_initialize :set_default_role, if: :new_record?
+  after_initialize :set_default_status, if: :new_record?
 
   scope :all_except, ->(user) { where.not(id: user).order('updated_at desc') }
 
@@ -44,20 +50,26 @@ class User < ApplicationRecord
     self.role ||= :publisher
   end
 
+  def set_default_status
+    self.status ||= :pending
+  end
+
   def soft_delete
-    update_attribute(:deleted_at, Time.current)
+    update_attributes(deleted_at: Time.current, status: :inactived)
   end
 
   def active_for_authentication?
-    super && !deleted_at?
-  end
-
-  def status
-    deleted_at ? 'inactive' : 'active'
+    super && (!deleted_at? && status != 'pending')
   end
 
   def regenerate_authentication_token
     self.authentication_token = Devise.friendly_token
     self.token_expired_date = ENV['TOKEN_EXPIRED_IN_MONTH'].to_i.month.from_now
+  end
+
+  def self.filter(params)
+    relation = all
+    relation = relation.where(status: params[:status]) if params[:status].present?
+    relation
   end
 end

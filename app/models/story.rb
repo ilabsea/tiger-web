@@ -17,6 +17,7 @@
 #  source_link  :string(255)
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
+#  license      :string(255)
 #
 
 class Story < ApplicationRecord
@@ -30,6 +31,14 @@ class Story < ApplicationRecord
   has_many :story_reads, dependent: :destroy
 
   STATUSED = %w[new pending published rejected archived].freeze
+  LICENSES = [
+    'Attribution 4.0 International (CC BY 4.0)',
+    'Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)',
+    'Attribution-NoDerivatives 4.0 International (CC BY-ND 4.0)',
+    'Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)',
+    'Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)',
+    'Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)'
+  ].freeze
 
   accepts_nested_attributes_for :tags
 
@@ -37,9 +46,9 @@ class Story < ApplicationRecord
 
   mount_uploader :image, ImageUploader
 
+  validates :license, presence: true, inclusion: { in: LICENSES }
   validates :status, inclusion: { in: STATUSED }
   validates :title, presence: true, uniqueness: { case_sensitive: false }
-  validates :source_link, format: { with: /\A^(https?\:\/\/)?[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,6}((\/|\?)\S*)?$\z/ }, allow_blank: true
 
   scope :actives, -> { where(actived: true) }
   scope :exclude_archives, -> { where.not(status: 'archived').order('created_at desc') }
@@ -49,7 +58,6 @@ class Story < ApplicationRecord
   ## Callbacks
   before_validation :set_default_status, on: :create
   before_save :set_author
-  before_save :set_protocol, if: ->(obj) { obj.source_link.present? }
 
   def tags_attributes=(attributes)
     attributes.each do |attribute|
@@ -74,17 +82,17 @@ class Story < ApplicationRecord
     relation
   end
 
+  def self.licenses
+    LICENSES
+  end
+
   private
 
   def set_default_status
     self.status ||= 'new'
   end
 
-  def set_protocol
-    self.source_link = source_link.start_with?('http://', 'https://') ? source_link : "http://#{source_link}"
-  end
-
   def set_author
-    self.author ||= !!user && user.email.split('@').first
+    self.author ||= user.present? && user.email.split('@').first
   end
 end

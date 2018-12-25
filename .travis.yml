@@ -11,6 +11,10 @@ before_script:
   - cp config/application.yml.example config/application.yml
   - cp config/database.yml.example config/database.yml
   - mysql -e 'create database tiger_test'
+
+before_install:
+  - mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -u root mysql
+
 bundler_args: --binstubs=./bundler_stubs
 
 after_success:

@@ -52,7 +52,7 @@ module Api
       private
 
       def question_params
-        params.require(:question).permit(:id, :label, choices_attributes: %i[id label answered _destroy])
+        params.require(:question).permit(:id, :label, :message, choices_attributes: %i[id label answered _destroy])
       end
 
       def grab_story_from_story_id

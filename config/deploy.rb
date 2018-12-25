@@ -4,17 +4,27 @@ lock "~> 3.10.2"
 set :application, "tiger-web"
 set :repo_url, "https://github.com/ilabsea/tiger-web.git"
 
-set :rbenv_ruby, File.read('.ruby-version').strip
+# if use rbenv
+# set :rbenv_ruby, File.read('.ruby-version').strip
+# set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} RBENV_VERSION=#{fetch(:rbenv_ruby)} #{fetch(:rbenv_path)}/bin/rbenv exec"
+# set :rbenv_map_bins, %w{rake gem bundle ruby rails}
+# set :rbenv_roles, :all # default value
 
-set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} RBENV_VERSION=#{fetch(:rbenv_ruby)} #{fetch(:rbenv_path)}/bin/rbenv exec"
-set :rbenv_map_bins, %w{rake gem bundle ruby rails}
-set :rbenv_roles, :all # default value
+# if use rvm
+set :rvm_type, :auto                     # Defaults to: :auto
+set :rvm_ruby_version, '2.5.1'      # Defaults to: 'default'
+set :rvm_roles, [:all]
+
+set :passenger_roles, :db
+set :migration_role, :db
 
 # Default branch is :master
-set :branch, :statistic
+set :branch, :'phase-two'
 
 # Default deploy_to directory is /var/www/my_app_name
 set :deploy_to, "/var/www/tiger-web"
+
+set :pty,  false
 
 # Default value for :format is :airbrussh.
 # set :format, :airbrussh
@@ -44,7 +54,6 @@ append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/syst
 # Uncomment the following to require manually verifying the host key before first deploy.
 # set :ssh_options, verify_host_key: :secure
 
-set :migration_role, :app
 set :passenger_restart_with_touch, true
 
 namespace :deploy do
@@ -58,3 +67,10 @@ namespace :deploy do
   end
 end
 
+namespace :sidekiq do
+  task :restart do
+    on roles(:app) do
+      execute :sudo, :systemctl, :restart, :sidekiq
+    end
+  end
+end

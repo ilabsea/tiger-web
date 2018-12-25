@@ -8,19 +8,22 @@ class Ability
 
     user ||= User.new # guest user (not logged in)
 
-    can :read, Story, status: %(published)
-    can :read, Scene
-    can :read, Question
-
-    if user.present?
-      can :manage, Story, user_id: user.id, status: %w[new pending published rejected]
-      can :manage, Scene
-      can :manage, SceneAction
-      can :manage, Question
-      can :manage, Choice
-
-      can :manage, :all if user.admin?
+    if user.new_record?
+      can :create, User, status: %(pending)
+      can :read, Story, status: %(published)
+      can :read, Scene
+      can :read, Question
     end
+
+    return unless user.present?
+
+    can :manage, Story, user_id: user.id, status: %w[new pending published rejected]
+    can :manage, Scene
+    can :manage, SceneAction
+    can :manage, Question
+    can :manage, Choice
+
+    can :manage, :all if user.admin?
 
     # The first argument to `can` is the action you are giving the user
     # permission to do.

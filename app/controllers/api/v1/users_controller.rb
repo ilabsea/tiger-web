@@ -3,15 +3,19 @@
 module Api
   module V1
     class UsersController < ApiController
+      skip_before_action :authenticate_with_token!, only: :create
       authorize_resource
 
       def index
-        users = User.all_except(current_user).page(params[:page]).per(params[:per_page])
+        users = User.all_except(current_user).filter(params).page(params[:page]).per(params[:per_page])
         render json: users, meta: pagination(users)
       end
 
       def create
         user = User.new(user_params)
+        authorize! :create, user
+        user.skip_confirmation_notification!
+
         if user.save
           render json: user, status: :created
         else
@@ -41,7 +45,7 @@ module Api
       private
 
       def user_params
-        params.require(:user).permit(:email, :password, :password_confirmation, :role)
+        params.require(:user).permit(:email, :password, :password_confirmation, :role, :status)
       end
     end
   end

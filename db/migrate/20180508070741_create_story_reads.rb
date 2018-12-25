@@ -5,6 +5,7 @@ class CreateStoryReads < ActiveRecord::Migration[5.1]
       t.datetime :finished_at
       t.boolean :quiz_finished
       t.string :user_uuid
+      t.string :user_type
 
       t.timestamps null: false
     end

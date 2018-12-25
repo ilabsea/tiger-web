@@ -33,5 +33,8 @@ module Tiger
       Devise::UnlocksController.layout "devise"
       Devise::PasswordsController.layout "devise"
     end
+
+    config.active_record.observers = :user_observer
+    config.active_job.queue_adapter = :sidekiq
   end
 end

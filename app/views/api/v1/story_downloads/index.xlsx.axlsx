@@ -1,17 +1,19 @@
+# frozen_string_literal: true
+
 wb = xlsx_package.workbook
 
-wb.add_worksheet(name: "Download") do |sheet|
-  sheet.add_row ['Story', 'Downloaded at']
-  
+wb.add_worksheet(name: 'Download') do |sheet|
+  sheet.add_row ['Story', 'Downloaded at', 'User Type']
+
   @story_downloads.each do |download|
-    sheet.add_row [download.story.title, download.created_at]
+    sheet.add_row [download.story.title, download.created_at, download.user_type]
   end
 end
 
-wb.add_worksheet(name: "Read") do |sheet|
-  sheet.add_row ['Story', 'Read at']
-  
+wb.add_worksheet(name: 'Read') do |sheet|
+  sheet.add_row ['Story', 'Read at', 'User Type']
+
   @story_reads.each do |read|
-    sheet.add_row [read.story.title, read.created_at]
+    sheet.add_row [read.story.title, read.created_at, read.user_type]
   end
 end

@@ -19,7 +19,9 @@ server_address = "192.168.1.249"
 
 # role :app, %w{deploy@example.com}, my_property: :my_value
 # role :web, %w{user1@primary.com user2@additional.com}, other_property: :other_value
+# role :db,  "ilab@#{server_address}"
 role :db,  "tiger@#{server_address}"
+role :app,  "tiger@#{server_address}"
 
 
 
@@ -42,7 +44,7 @@ role :db,  "tiger@#{server_address}"
 # Global options
 # --------------
 set :ssh_options, {
-  user: "tiger",
+  user: "ilab",
   keys: %w(~/.ssh/id_rsa),
   forward_agent: true
 }

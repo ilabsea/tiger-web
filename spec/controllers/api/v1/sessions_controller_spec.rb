@@ -3,22 +3,23 @@ require 'rails_helper'
 describe Api::V1::SessionsController do
 
   describe "POST #create" do
+    let(:user) { FactoryBot.create(:user) }
 
-   before(:each) do
-    @user = FactoryBot.create(:user)
-   end
+    before(:each) do
+      user.confirm
+    end
 
     context "when the credentials are correct" do
 
       before(:each) do
-        credentials = { email: @user.email, password: 'password' }
+        credentials = { email: user.email, password: 'password' }
         post :create, params: { session: credentials }
       end
 
       it "returns the user record corresponding to the given credentials" do
-        @user.reload
+        user.reload
         json_response = JSON.parse response.body
-        expect(json_response["authentication_token"]).to eq @user.authentication_token
+        expect(json_response["authentication_token"]).to eq user.authentication_token
       end
 
       it { expect(response.status).to eq(200) }
@@ -27,7 +28,7 @@ describe Api::V1::SessionsController do
     context "when the credentials are incorrect" do
 
       before(:each) do
-        credentials = { email: @user.email, password: "invalidpassword" }
+        credentials = { email: user.email, password: "invalidpassword" }
         post :create, params: { session: credentials }
       end
 
@@ -44,6 +45,7 @@ describe Api::V1::SessionsController do
 
     before(:each) do
       @user = FactoryBot.create :user
+      @user.confirm
       delete :destroy, params: {id: @user.authentication_token}
     end
 

@@ -10,6 +10,7 @@
 #  display_order :integer
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
+#  message       :text(65535)
 #
 
 class Question < ApplicationRecord

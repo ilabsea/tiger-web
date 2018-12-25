@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180608014000) do
+ActiveRecord::Schema.define(version: 20181102081349) do
 
   create_table "choices", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "label"
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 20180608014000) do
     t.integer "display_order"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "message"
   end
 
   create_table "quiz_responses", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -74,6 +75,7 @@ ActiveRecord::Schema.define(version: 20180608014000) do
     t.string "source_link"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "license"
     t.index ["title", "user_id"], name: "index_stories_on_title_and_user_id"
   end
 
@@ -82,6 +84,7 @@ ActiveRecord::Schema.define(version: 20180608014000) do
     t.string "device_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "user_type"
   end
 
   create_table "story_reads", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -89,6 +92,7 @@ ActiveRecord::Schema.define(version: 20180608014000) do
     t.datetime "finished_at"
     t.boolean "quiz_finished"
     t.string "user_uuid"
+    t.string "user_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -140,6 +144,11 @@ ActiveRecord::Schema.define(version: 20180608014000) do
     t.datetime "deleted_at"
     t.string "authentication_token", default: ""
     t.datetime "token_expired_date"
+    t.string "status"
+    t.string "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string "unconfirmed_email"
     t.index ["authentication_token"], name: "index_users_on_authentication_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

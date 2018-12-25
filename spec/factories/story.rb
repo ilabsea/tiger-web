@@ -5,6 +5,7 @@ FactoryBot.define do
     status      'new'
     image       { Rack::Test::UploadedFile.new(Rails.root.join('spec', 'support', 'stories', 'story1.png'), 'image/png') }
     author      { FFaker::Name.name }
+    license     'Attribution 4.0 International (CC BY 4.0)'
     user
 
     trait :with_scene_and_actions do
