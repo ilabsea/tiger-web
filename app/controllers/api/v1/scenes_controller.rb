@@ -15,7 +15,8 @@ module Api
 
       def create
         @scene = @story.scenes.new(scene_params)
-        @scene.image = params[:file]
+        @scene.image = params[:image]
+        @scene.audio = params[:audio]
 
         if @scene.save
           render json: @scene, status: :created
@@ -26,7 +27,8 @@ module Api
 
       def update
         @scene = @story.scenes.find(params[:id])
-        @scene.image = params[:file] if params[:file].present?
+        @scene.image = params[:image] if params[:image].present?
+        @scene.audio = params[:audio] if params[:audio].present?
 
         if @scene.update_attributes(scene_params)
           render json: @scene, status: :ok
@@ -45,6 +47,7 @@ module Api
         @scene = @story.scenes.find(params[:id])
 
         if @scene.destroy
+          @scene.remove_related_attachements
           head :ok
         else
           render json: @scene.errors, status: :unprocessable_entity
@@ -57,7 +60,7 @@ module Api
         params[:data] = JSON.parse(params['data'])
         params[:data].require(:scene).permit(
           :id, :name, :parent_id, :description, :image, :story_id,
-          :visible_name, :image_as_background, :remove_image, :is_end,
+          :visible_name, :image_as_background, :remove_image, :is_end, :remove_audio,
           scene_actions_attributes: %i[id name display_order link_scene_id use_next story_id _destroy]
         )
       end

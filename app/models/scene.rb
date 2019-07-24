@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: scenes
@@ -17,6 +16,7 @@
 #  is_end              :boolean          default(FALSE)
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
+#  audio               :string(255)
 #
 
 class Scene < ApplicationRecord
@@ -29,10 +29,12 @@ class Scene < ApplicationRecord
   scope :exclude_me, ->(id) { where.not(id: id) }
 
   mount_uploader :image, ImageUploader
+  mount_uploader :audio, AudioUploader
 
   acts_as_nested_set dependent: :destroy, scope: [:story_id]
 
   accepts_nested_attributes_for :scene_actions, allow_destroy: true, reject_if: ->(a) { a[:name].blank? }
+
 
   ## Class Methods
   def self.update_order!(ids)
@@ -43,5 +45,9 @@ class Scene < ApplicationRecord
       previous.present? ? current.move_to_right_of(previous) : current.move_to_root
       previous = current
     end
+  end
+
+  def remove_related_attachements
+    self.audio.remove!
   end
 end

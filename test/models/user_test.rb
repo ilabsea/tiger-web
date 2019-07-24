@@ -19,6 +19,11 @@
 #  deleted_at             :datetime
 #  authentication_token   :string(255)      default("")
 #  token_expired_date     :datetime
+#  status                 :string(255)
+#  confirmation_token     :string(255)
+#  confirmed_at           :datetime
+#  confirmation_sent_at   :datetime
+#  unconfirmed_email      :string(255)
 #
 
 require 'test_helper'

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181102081349) do
+ActiveRecord::Schema.define(version: 20190722085517) do
 
   create_table "choices", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "label"
@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(version: 20181102081349) do
     t.boolean "is_end", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "audio"
     t.index ["lft"], name: "index_scenes_on_lft"
     t.index ["parent_id"], name: "index_scenes_on_parent_id"
     t.index ["rgt"], name: "index_scenes_on_rgt"
