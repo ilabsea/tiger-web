@@ -9,6 +9,7 @@
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #  message       :text(65535)
+#  audio         :string(255)
 #
 
 require 'rails_helper'

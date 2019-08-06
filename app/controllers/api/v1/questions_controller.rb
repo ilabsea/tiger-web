@@ -15,6 +15,7 @@ module Api
 
       def create
         @question = @story.questions.new(question_params)
+        @question.audio = params[:audio]
 
         if @question.save
           render json: @question, status: :created
@@ -25,6 +26,7 @@ module Api
 
       def update
         @question = @story.questions.find(params[:id])
+        @question.audio = params[:audio] if params[:audio].present?
 
         if @question.update_attributes(question_params)
           render json: @question, status: :ok
@@ -52,7 +54,8 @@ module Api
       private
 
       def question_params
-        params.require(:question).permit(:id, :label, :message, choices_attributes: %i[id label answered _destroy])
+        params[:data] = JSON.parse(params['data'])
+        params[:data].require(:question).permit(:id, :label, :message, :remove_audio, choices_attributes: %i[id label answered _destroy])
       end
 
       def grab_story_from_story_id

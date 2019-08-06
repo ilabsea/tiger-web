@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: questions
@@ -11,11 +10,14 @@
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #  message       :text(65535)
+#  audio         :string(255)
 #
 
 class Question < ApplicationRecord
   belongs_to :story
   has_many :choices, dependent: :destroy
+
+  mount_uploader :audio, AudioUploader
 
   accepts_nested_attributes_for :choices, allow_destroy: true, reject_if: ->(a) { a[:label].blank? }
 
