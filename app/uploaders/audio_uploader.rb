@@ -45,6 +45,10 @@ class AudioUploader < CarrierWave::Uploader::Base
     "#{secure_token}.#{file.extension}" if original_filename.present?
   end
 
+  def extension_whitelist
+    %w(mp3 wav wma ogg)
+  end
+
   protected
   def secure_token
     var = :"@#{mounted_as}_secure_token"
