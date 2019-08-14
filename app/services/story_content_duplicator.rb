@@ -45,6 +45,7 @@ class StoryContentDuplicator
 
       scene = @child.scenes.build(hash)
       scene.image = File.open(master_scene.image.file.file) if master_scene.image.present?
+      scene.audio = File.open(master_scene.audio.file.file) if master_scene.audio.present?
       scene.save
     end
   end
@@ -71,8 +72,10 @@ class StoryContentDuplicator
   def clone_questions
     master.questions.each do |master_question|
       hash = clean_attributes(master_question)
+      question = @child.questions.new(hash)
+      question.audio = File.open(master_question.audio.file.file) if master_question.audio.present?
 
-      question = @child.questions.create(hash)
+      question.save
       clone_choices(question, master_question)
     end
   end
