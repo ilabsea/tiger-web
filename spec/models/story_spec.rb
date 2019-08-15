@@ -83,4 +83,16 @@ RSpec.describe Story do
       expect(story.tags.count).to eq(0)
     end
   end
+
+  describe '#has_audio' do
+    it 'return false' do
+      story = FactoryBot.create :story
+      expect(story.has_audio).to be_falsey
+    end
+
+    it 'return true' do
+      story = FactoryBot.create :story, :with_scene_and_actions
+      expect(story.has_audio).to be_truthy
+    end
+  end
 end
