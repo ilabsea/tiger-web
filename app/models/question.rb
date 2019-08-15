@@ -18,6 +18,7 @@ class Question < ApplicationRecord
   has_many :choices, dependent: :destroy
 
   mount_uploader :audio, AudioUploader
+  mount_uploader :educational_message_audio, AudioUploader
 
   accepts_nested_attributes_for :choices, allow_destroy: true, reject_if: ->(a) { a[:label].blank? }
 

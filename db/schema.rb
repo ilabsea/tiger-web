@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190806033135) do
+ActiveRecord::Schema.define(version: 20190815065812) do
 
   create_table "choices", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "label"
@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 20190806033135) do
     t.datetime "updated_at", null: false
     t.text "message"
     t.string "audio"
+    t.string "educational_message_audio"
   end
 
   create_table "quiz_responses", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

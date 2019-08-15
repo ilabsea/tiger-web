@@ -10,4 +10,10 @@ RSpec.describe Question do
     question = FactoryBot.create(:question)
     expect(question.audio.current_path).to be_truthy
   end
+
+  it 'has educational message audio' do
+    question = FactoryBot.create(:question)
+    expect(question.educational_message_audio.current_path).to be_truthy
+  end
+
 end

@@ -74,6 +74,7 @@ class StoryContentDuplicator
       hash = clean_attributes(master_question)
       question = @child.questions.new(hash)
       question.audio = File.open(master_question.audio.file.file) if master_question.audio.present?
+      question.educational_message_audio = File.open(master_question.educational_message_audio.file.file) if master_question.educational_message_audio.present?
 
       question.save
       clone_choices(question, master_question)
