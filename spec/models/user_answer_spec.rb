@@ -1,15 +1,3 @@
-# == Schema Information
-#
-# Table name: user_answers
-#
-#  id          :integer          not null, primary key
-#  user_uuid   :string(255)
-#  question_id :integer
-#  choice_id   :integer
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#
-
 require 'rails_helper'
 
 RSpec.describe UserAnswer do

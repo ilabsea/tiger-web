@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: story_reads
@@ -9,9 +8,9 @@
 #  finished_at   :datetime
 #  quiz_finished :boolean
 #  user_uuid     :string(255)
+#  user_type     :string(255)
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
-#  user_type     :string(255)
 #
 
 class StoryRead < ApplicationRecord
