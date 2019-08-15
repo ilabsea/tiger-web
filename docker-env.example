@@ -1,13 +1,21 @@
 # Rails configuration
+HOST=localhost:3000
+
+# Database
 DB_HOST=db
 DB_USER=root
 DB_PWD=
 DB_MAX_CONNECTION_POOL=5
 DB_CONNECTION_TIMEOUT=5000
 
+# SMTP
+SETTINGS__SMTP__ADDRESS=smtp
+SETTINGS__SMTP__PORT=1025
+SETTINGS__SMTP__USER_NAME=smtp
+SETTINGS__SMTP__PASSWORD=smtp
+
 # Redis configuration
 REDIS_URL=redis://redis:6379/12
-
 
 # Shell with unicode support
 LANG=C.UTF-8
