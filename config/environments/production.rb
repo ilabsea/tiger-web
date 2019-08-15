@@ -66,12 +66,12 @@ Rails.application.configure do
   # Change mail delvery to either :smtp, :sendmail, :file, :test
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    address: "smtp.gmail.com",
-    port: 587,
-    authentication: "plain",
-    enable_starttls_auto: true,
-    user_name: ENV['GMAIL_USERNAME'],
-    password: ENV['GMAIL_PASSWORD'],
+    address: ENV['SETTINGS__SMTP__ADDRESS'],
+    port: ENV.fetch('SETTINGS__SMTP__PORT') { 25 },
+    authentication: ENV.fetch('SETTINGS__SMTP__AUTHENTICATION') { 'plain' },,
+    enable_starttls_auto: ENV.fetch('SETTINGS__SMTP__ENABLE__STARTTLS__AUTO') { true },
+    user_name: ENV['SETTINGS__SMTP__USER_NAME'],
+    password: ENV['SETTINGS__SMTP__PASSWORD'],
   }
 
   config.action_mailer.perform_deliveries = true
