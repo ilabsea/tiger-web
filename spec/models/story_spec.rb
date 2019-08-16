@@ -84,15 +84,15 @@ RSpec.describe Story do
     end
   end
 
-  describe '#has_audio' do
+  describe '#has_audio?' do
     it 'return false' do
       story = FactoryBot.create :story
-      expect(story.has_audio).to be_falsey
+      expect(story.has_audio?).to be_falsey
     end
 
     it 'return true' do
       story = FactoryBot.create :story, :with_scene_and_actions
-      expect(story.has_audio).to be_truthy
+      expect(story.has_audio?).to be_truthy
     end
   end
 end

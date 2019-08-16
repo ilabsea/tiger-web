@@ -16,4 +16,8 @@ class StorySerializer < ActiveModel::Serializer
       email: object.user.email
     }
   end
+
+  def has_audio
+    object.has_audio?
+  end
 end

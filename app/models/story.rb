@@ -73,7 +73,7 @@ class Story < ApplicationRecord
     end
   end
 
-  def has_audio
+  def has_audio?
     scenes.where.not(audio: nil).count > 0 || (questions.where.not(audio: nil).or(questions.where.not(educational_message_audio: nil))).count > 0
   end
 
