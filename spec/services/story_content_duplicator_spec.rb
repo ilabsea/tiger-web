@@ -22,12 +22,24 @@ RSpec.describe StoryContentDuplicator do
       expect(story.scenes.count).to eq parent_story.scenes.count
     end
 
+    it "clones story scene's audio" do
+      expect(File.basename(story.scenes.first.audio.path)).to eq File.basename(parent_story.scenes.first.audio.path)
+    end
+
     it 'clones story scene actions' do
       expect(story.scene_actions.count).to eq parent_story.scene_actions.count
     end
 
     it 'clones story questions' do
       expect(story.questions.count).to eq parent_story.questions.count
+    end
+
+    it "clones story question's audio" do
+      expect(File.basename(story.questions.first.audio.path)).to eq File.basename(parent_story.questions.first.audio.path)
+    end
+
+    it "clones story question's educational message audio" do
+      expect(File.basename(story.questions.first.educational_message_audio.path)).to eq File.basename(parent_story.questions.first.educational_message_audio.path)
     end
 
     it 'clones story question choices' do

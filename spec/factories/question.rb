@@ -1,6 +1,8 @@
 FactoryBot.define do
   factory :question do
     label          { FFaker::Lorem.phrase }
+    audio          { Rack::Test::UploadedFile.new(Rails.root.join('spec', 'support', 'questions', 'សំណួរ.mp3'), 'audio/mp3') }
+    educational_message_audio { Rack::Test::UploadedFile.new(Rails.root.join('spec', 'support', 'questions', 'educational_message.mp3'), 'audio/mp3') }
     story
 
     trait :with_choices do

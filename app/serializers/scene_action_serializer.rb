@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 class SceneActionSerializer < ActiveModel::Serializer
   attributes :id, :name, :link_scene_id, :scene_id, :story_id, :link_scene, :use_next
 
