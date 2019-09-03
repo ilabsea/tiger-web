@@ -63,7 +63,7 @@ class User < ApplicationRecord
 
   def regenerate_authentication_token
     self.authentication_token = Devise.friendly_token
-    self.token_expired_date = ENV['TOKEN_EXPIRED_IN_MONTH'].to_i.month.from_now
+    self.token_expired_date = (ENV.fetch('TOKEN_EXPIRED_IN_DAY') { 1 }).to_i.day.from_now
   end
 
   def self.filter(params)

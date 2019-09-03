@@ -27,22 +27,25 @@ Rails.application.configure do
   end
 
   # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.raise_delivery_errors = false
 
   # Change mail delvery to either :smtp, :sendmail, :file, :test
-  config.action_mailer.delivery_method = :sendmail
-  config.action_mailer.perform_deliveries = true
+  config.action_mailer.delivery_method = :smtp
+  # config.action_mailer.perform_deliveries = true
 
-  # config.action_mailer.smtp_settings = {
-  #   address: "smtp.gmail.com",
-  #   port: 587,
-  #   authentication: "plain",
-  #   enable_starttls_auto: true,
-  #   user_name: ENV['GMAIL_USERNAME'],
-  #   password: ENV['GMAIL_PASSWORD'],
-  # }
+  smtp_settings = {}.tap do |settings|
+    settings[:address]              = ENV['SETTINGS__SMTP__ADDRESS'] if ENV['SETTINGS__SMTP__ADDRESS'].present?
+    settings[:port]                 = ENV['SETTINGS__SMTP__PORT'] if ENV['SETTINGS__SMTP__PORT'].present?
+    settings[:domain]               = ENV['SETTINGS__SMTP__DOMAIN'] if ENV['SETTINGS__SMTP__DOMAIN'].present?
+    settings[:user_name]            = ENV['SETTINGS__SMTP__USER_NAME'] if ENV['SETTINGS__SMTP__USER_NAME'].present?
+    settings[:password]             = ENV['SETTINGS__SMTP__PASSWORD'] if ENV['SETTINGS__SMTP__PASSWORD'].present?
+    settings[:authentication]       = ENV['SETTINGS__SMTP__AUTHENTICATION'] if ENV['SETTINGS__SMTP__AUTHENTICATION'].present?
+    settings[:enable_starttls_auto] = ENV['SETTINGS__SMTP__ENABLE__STARTTLS__AUTO'] if ENV['SETTINGS__SMTP__ENABLE__STARTTLS__AUTO'].present?
+  end
 
-  config.action_mailer.default_url_options = {host: "localhost:3000"}
+  config.action_mailer.smtp_settings = smtp_settings
+
+  config.action_mailer.default_url_options = { host: ENV.fetch('HOST') { 'localhost:3000' } }
 
   config.action_mailer.perform_caching = false
 
