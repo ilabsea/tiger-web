@@ -206,7 +206,7 @@ GEM
       byebug (~> 10.0)
       pry (~> 0.10)
     public_suffix (3.0.2)
-    puma (3.11.3)
+    puma (3.12.4)
     rack (2.0.4)
     rack-cors (0.4.1)
     rack-protection (2.0.4)
@@ -370,7 +370,7 @@ DEPENDENCIES
   mysql2 (>= 0.3.18, < 0.5)
   pry
   pry-byebug
-  puma (~> 3.7)
+  puma (~> 3.12)
   rack-cors (~> 0.4.0)
   rails (~> 5.1.5)
   rails-observers (~> 0.1.5)
