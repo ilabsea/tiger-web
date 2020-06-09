@@ -23,6 +23,8 @@ Rails.application.routes.draw do
       resources :story_downloads, only: [:index, :create]
       resources :story_reads, only: [:create]
       resources :tags, only: [:index]
+      resources :notifications, only: [:index, :create]
+      resources :registered_tokens, only: [:create]
 
       scope '/tags/:tag_id', as: :tags, module: 'tags' do
         resources :stories, only: [:index]

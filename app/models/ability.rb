@@ -22,6 +22,7 @@ class Ability
     can :manage, SceneAction
     can :manage, Question
     can :manage, Choice
+    cannot :manage, Notification
 
     can :manage, :all if user.admin?
 

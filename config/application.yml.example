@@ -7,6 +7,7 @@ development:
   GMAIL_USERNAME: 'example@gmail.com'
   GMAIL_PASSWORD: 'password'
   DOMAIN: 'http://example.com'
+  FIREBASE_SERVER_KEY: 'SERVER_KEY'
 
 test:
   <<: *default

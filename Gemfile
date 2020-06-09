@@ -35,6 +35,8 @@ gem 'kaminari', '~> 1.1', '>= 1.1.1'
 gem 'strip_attributes', '~> 1.8.0'
 gem 'rack-cors', '~> 0.4.0', :require => 'rack/cors'
 
+gem 'fcm', '~> 1.0.1'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
