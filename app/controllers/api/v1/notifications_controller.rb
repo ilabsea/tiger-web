@@ -6,7 +6,7 @@ module Api
       authorize_resource
 
       def index
-        @notifications = Notification.joins(:creator).page(params[:page]).per(params[:per_page])
+        @notifications = Notification.joins(:creator).order('updated_at DESC').page(params[:page]).per(params[:per_page])
 
         render json: @notifications, meta: pagination(@notifications)
       end

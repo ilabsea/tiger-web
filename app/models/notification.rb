@@ -14,7 +14,7 @@ class Notification < ApplicationRecord
   end
 
   def build_content
-    { 'notification': { 'title': title, 'body': body } }
+    { notification: { title: title, body: body } }
   end
 
   private

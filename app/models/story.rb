@@ -57,6 +57,7 @@ class Story < ApplicationRecord
   ## Callbacks
   before_validation :set_default_status, on: :create
   before_save :set_author
+  after_update :push_notification, if: -> { saved_change_to_attribute?('status') && status == 'published' }
 
   def tags_attributes=(attributes)
     attributes.each do |attribute|
@@ -75,6 +76,14 @@ class Story < ApplicationRecord
 
   def has_audio?
     scenes.where.not(audio: nil).count > 0 || (questions.where.not(audio: nil).or(questions.where.not(educational_message_audio: nil))).count > 0
+  end
+
+  def push_notification
+    StoryWorker.perform_async(id)
+  end
+
+  def build_content
+    { notification: { title: ENV['STORY_NOTIFICATION_TITLE'], body: "#{ENV['STORY_NOTIFICATION_BODY']} #{title}" }, data: {story: StorySerializer.new(self).to_json} }
   end
 
   def self.filter(params)
