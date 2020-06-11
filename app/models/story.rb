@@ -79,11 +79,17 @@ class Story < ApplicationRecord
   end
 
   def push_notification
+    Setting.clear_cache
+    return unless Setting.notification_options['story_enable_pushing']
+
     StoryWorker.perform_async(id)
   end
 
   def build_content
-    { notification: { title: ENV['STORY_NOTIFICATION_TITLE'], body: "#{ENV['STORY_NOTIFICATION_BODY']} #{title}" }, data: {story: StorySerializer.new(self).to_json} }
+    titl = Setting.notification_options['story_notification_title'].gsub(/\{title\}/, title)
+    bodi = Setting.notification_options['story_notification_body'].gsub(/\{title\}/, title)
+
+    { notification: { title: titl, body: bodi }, data: {story: StorySerializer.new(self).to_json} }
   end
 
   def self.filter(params)

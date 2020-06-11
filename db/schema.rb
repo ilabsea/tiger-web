@@ -10,12 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190815065812) do
+ActiveRecord::Schema.define(version: 20200611032514) do
 
   create_table "choices", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "label"
     t.boolean "answered", default: false
     t.integer "question_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "notifications", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "uuid"
+    t.string "title"
+    t.text "body"
+    t.integer "creator_id"
+    t.integer "success_count"
+    t.integer "failure_count"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -35,6 +46,12 @@ ActiveRecord::Schema.define(version: 20190815065812) do
     t.integer "question_id"
     t.integer "choice_id"
     t.integer "story_read_id"
+  end
+
+  create_table "registered_tokens", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "token"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "scene_actions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -63,6 +80,14 @@ ActiveRecord::Schema.define(version: 20190815065812) do
     t.index ["lft"], name: "index_scenes_on_lft"
     t.index ["parent_id"], name: "index_scenes_on_parent_id"
     t.index ["rgt"], name: "index_scenes_on_rgt"
+  end
+
+  create_table "settings", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "var", null: false
+    t.text "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["var"], name: "index_settings_on_var", unique: true
   end
 
   create_table "stories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

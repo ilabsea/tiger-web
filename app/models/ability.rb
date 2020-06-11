@@ -23,6 +23,7 @@ class Ability
     can :manage, Question
     can :manage, Choice
     cannot :manage, Notification
+    cannot :manage, Setting
 
     can :manage, :all if user.admin?
 

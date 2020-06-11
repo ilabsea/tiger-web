@@ -36,6 +36,7 @@ gem 'strip_attributes', '~> 1.8.0'
 gem 'rack-cors', '~> 0.4.0', :require => 'rack/cors'
 
 gem 'fcm', '~> 1.0.1'
+gem 'rails-settings-cached', '~> 2.0'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
