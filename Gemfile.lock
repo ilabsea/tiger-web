@@ -211,7 +211,7 @@ GEM
       byebug (~> 10.0)
       pry (~> 0.10)
     public_suffix (3.0.2)
-    puma (3.11.3)
+    puma (3.12.6)
     rack (2.0.4)
     rack-cors (0.4.1)
     rack-protection (2.0.4)
@@ -298,8 +298,8 @@ GEM
     selenium-webdriver (3.11.0)
       childprocess (~> 0.5)
       rubyzip (~> 1.2)
-    shoulda-matchers (3.1.2)
-      activesupport (>= 4.0.0)
+    shoulda-matchers (4.3.0)
+      activesupport (>= 4.2.0)
     sidekiq (5.2.2)
       connection_pool (~> 2.2, >= 2.2.2)
       rack-protection (>= 1.5.0)
@@ -381,7 +381,7 @@ DEPENDENCIES
   mysql2 (>= 0.3.18, < 0.5)
   pry
   pry-byebug
-  puma (~> 3.7)
+  puma (~> 3.12)
   rack-cors (~> 0.4.0)
   rails (~> 5.1.5)
   rails-observers (~> 0.1.5)
@@ -390,7 +390,7 @@ DEPENDENCIES
   rubocop (~> 0.54.0)
   sass-rails (~> 5.0)
   selenium-webdriver
-  shoulda-matchers (~> 3.1.2)
+  shoulda-matchers (~> 4.3.0)
   sidekiq (~> 5.2.2)
   spring
   spring-watcher-listen (~> 2.0.0)
