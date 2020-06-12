@@ -1,6 +1,6 @@
 # RailsSettings Model
 class Setting < RailsSettings::Base
-  cache_prefix { }
+  # cache_prefix { }
 
   field :notification_options, type: :hash, default: {
     story_enable_pushing: true,
