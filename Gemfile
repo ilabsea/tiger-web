@@ -52,7 +52,7 @@ end
 
 group :test do
   gem 'factory_bot_rails', '~> 4.8.2'
-  gem 'shoulda-matchers',       '~> 3.1.2'
+  gem 'shoulda-matchers',       '~> 4.3.0'
   gem 'database_cleaner',       '~> 1.6.2'
   gem 'ffaker',                 '~> 2.8.0'
 end
