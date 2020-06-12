@@ -28,7 +28,7 @@ gem 'jbuilder', '~> 2.5'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
-gem 'devise', '~> 4.4.3'
+gem 'devise', '~> 4.7.1'
 gem 'breadcrumbs_on_rails'
 gem 'cancancan'
 gem 'kaminari', '~> 1.1', '>= 1.1.1'
