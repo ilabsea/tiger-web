@@ -31,7 +31,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'devise', '~> 4.4.3'
 gem 'breadcrumbs_on_rails'
 gem 'cancancan'
-gem 'kaminari', '~> 1.1', '>= 1.1.1'
+gem 'kaminari', '~> 1.2'
 gem 'strip_attributes', '~> 1.8.0'
 gem 'rack-cors', '~> 0.4.0', :require => 'rack/cors'
 
