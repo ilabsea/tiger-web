@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 20200611032514) do
     t.integer "creator_id"
     t.integer "success_count"
     t.integer "failure_count"
+    t.integer "story_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

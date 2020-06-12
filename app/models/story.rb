@@ -28,6 +28,7 @@ class Story < ApplicationRecord
   has_many :questions, dependent: :destroy
   has_many :story_downloads, dependent: :destroy
   has_many :story_reads, dependent: :destroy
+  has_many :notifications, dependent: :destroy
 
   STATUSED = %w[new pending published rejected archived].freeze
   LICENSES = [
@@ -82,7 +83,10 @@ class Story < ApplicationRecord
     Setting.clear_cache
     return unless Setting.notification_options['story_enable_pushing']
 
-    StoryWorker.perform_async(id)
+    titl = Setting.notification_options['story_notification_title'].gsub(/\{title\}/, title)
+    bodi = Setting.notification_options['story_notification_body'].gsub(/\{title\}/, title)
+
+    notifications.create(title: titl, body: bodi, creator_id: user_id)
   end
 
   def build_content

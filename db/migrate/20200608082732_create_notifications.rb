@@ -7,6 +7,7 @@ class CreateNotifications < ActiveRecord::Migration[5.1]
       t.integer  :creator_id
       t.integer  :success_count
       t.integer  :failure_count
+      t.integer  :story_id
 
       t.timestamps
     end
