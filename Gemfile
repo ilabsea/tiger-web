@@ -35,6 +35,9 @@ gem 'kaminari', '~> 1.1', '>= 1.1.1'
 gem 'strip_attributes', '~> 1.8.0'
 gem 'rack-cors', '~> 0.4.0', :require => 'rack/cors'
 
+gem 'fcm', '~> 1.0.1'
+gem 'rails-settings-cached', '~> 2.0'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
@@ -49,7 +52,7 @@ end
 
 group :test do
   gem 'factory_bot_rails', '~> 4.8.2'
-  gem 'shoulda-matchers',       '~> 3.1.2'
+  gem 'shoulda-matchers',       '~> 4.3.0'
   gem 'database_cleaner',       '~> 1.6.2'
   gem 'ffaker',                 '~> 2.8.0'
 end

@@ -40,6 +40,7 @@ class User < ApplicationRecord
   scope :all_except, ->(user) { where.not(id: user).order('updated_at desc') }
 
   has_many :stories, dependent: :destroy
+  has_many :notifications, dependent: :destroy, foreign_key: :creator_id
 
   before_create :regenerate_authentication_token
 

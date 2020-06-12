@@ -28,6 +28,7 @@ class Story < ApplicationRecord
   has_many :questions, dependent: :destroy
   has_many :story_downloads, dependent: :destroy
   has_many :story_reads, dependent: :destroy
+  has_many :notifications, dependent: :destroy
 
   STATUSED = %w[new pending published rejected archived].freeze
   LICENSES = [
@@ -57,6 +58,7 @@ class Story < ApplicationRecord
   ## Callbacks
   before_validation :set_default_status, on: :create
   before_save :set_author
+  after_update :push_notification, if: -> { saved_change_to_attribute?('status') && status == 'published' }
 
   def tags_attributes=(attributes)
     attributes.each do |attribute|
@@ -75,6 +77,23 @@ class Story < ApplicationRecord
 
   def has_audio?
     scenes.where.not(audio: nil).count > 0 || (questions.where.not(audio: nil).or(questions.where.not(educational_message_audio: nil))).count > 0
+  end
+
+  def push_notification
+    Setting.clear_cache
+    return unless Setting.notification_options['story_enable_pushing']
+
+    titl = Setting.notification_options['story_notification_title'].gsub(/\{title\}/, title)
+    bodi = Setting.notification_options['story_notification_body'].gsub(/\{title\}/, title)
+
+    notifications.create(title: titl, body: bodi, creator_id: user_id)
+  end
+
+  def build_content
+    titl = Setting.notification_options['story_notification_title'].gsub(/\{title\}/, title)
+    bodi = Setting.notification_options['story_notification_body'].gsub(/\{title\}/, title)
+
+    { notification: { title: titl, body: bodi }, data: {story: StorySerializer.new(self).to_json} }
   end
 
   def self.filter(params)

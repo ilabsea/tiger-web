@@ -7,7 +7,9 @@ development:
   GMAIL_USERNAME: 'example@gmail.com'
   GMAIL_PASSWORD: 'password'
   DOMAIN: 'http://example.com'
-
+  FIREBASE_SERVER_KEY: 'SERVER_KEY'
+  STORY_NOTIFICATION_TITLE: 'រឿងអប់រំថ្មី'
+  STORY_NOTIFICATION_BODY: 'យើងមានរឿងថ្មីក្រោមចំណងជើង'
 test:
   <<: *default
 
