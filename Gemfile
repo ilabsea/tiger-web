@@ -33,7 +33,7 @@ gem 'breadcrumbs_on_rails'
 gem 'cancancan'
 gem 'kaminari', '~> 1.1', '>= 1.1.1'
 gem 'strip_attributes', '~> 1.8.0'
-gem 'rack-cors', '~> 0.4.0', :require => 'rack/cors'
+gem 'rack-cors', '~> 1.0.5', :require => 'rack/cors'
 
 gem 'fcm', '~> 1.0.1'
 gem 'rails-settings-cached', '~> 2.0'
