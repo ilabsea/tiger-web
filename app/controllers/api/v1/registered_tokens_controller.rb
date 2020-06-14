@@ -6,7 +6,7 @@ module Api
       skip_before_action :authenticate_with_token!
 
       def create
-        @token = RegisteredToken.find_or_initialize_by(token: token_params[:token])
+        @token = RegisteredToken.find_or_initialize_by(token_params)
 
         if @token.save
           render json: @token, status: :created
