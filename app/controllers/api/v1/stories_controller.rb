@@ -8,7 +8,7 @@ module Api
       authorize_resource
 
       def index
-        @stories = @stories.joins(:user, :tags).filter(params).page(params[:page]).per(params[:per_page])
+        @stories = @stories.filter(params).includes(:user, :tags).page(params[:page]).per(params[:per_page])
 
         render json: @stories, meta: pagination(@stories)
       end
