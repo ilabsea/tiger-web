@@ -65,6 +65,9 @@ Rails.application.configure do
 
   # Change mail delvery to either :smtp, :sendmail, :file, :test
   config.action_mailer.delivery_method = :smtp
+  config.action_mailer.default_url_options = { host: ENV['SETTINGS__SMTP__HOST'] }
+  config.action_mailer.default_options = { from: ENV['SETTINGS__SMTP__DEFAULT_FROM'] }
+
   config.action_mailer.smtp_settings = {
     address: ENV['SETTINGS__SMTP__ADDRESS'],
     port: ENV.fetch('SETTINGS__SMTP__PORT') { 25 },
@@ -72,6 +75,7 @@ Rails.application.configure do
     enable_starttls_auto: ENV.fetch('SETTINGS__SMTP__ENABLE__STARTTLS__AUTO') { true },
     user_name: ENV['SETTINGS__SMTP__USER_NAME'],
     password: ENV['SETTINGS__SMTP__PASSWORD'],
+    domain: ENV['SETTINGS__SMTP__DOMAIN']
   }
 
   config.action_mailer.perform_deliveries = true
