@@ -24,7 +24,7 @@ Rails.application.routes.draw do
       resources :story_reads, only: [:create]
       resources :tags, only: [:index]
       resources :notifications, only: [:index, :create]
-      resources :registered_tokens, only: [:create]
+      resource :registered_tokens, only: [:update]
       resource :settings
 
       scope '/tags/:tag_id', as: :tags, module: 'tags' do

@@ -5,11 +5,11 @@ module Api
     class RegisteredTokensController < ApiController
       skip_before_action :authenticate_with_token!
 
-      def create
-        @token = RegisteredToken.find_or_initialize_by(token_params)
+      def update
+        @token = RegisteredToken.find_or_initialize_by(id: token_params['id'])
 
-        if @token.save
-          render json: @token, status: :created
+        if @token.update_attributes(token_params)
+          render json: @token
         else
           render json: @token.errors, status: :unprocessable_entity
         end
