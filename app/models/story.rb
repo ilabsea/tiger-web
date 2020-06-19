@@ -89,13 +89,6 @@ class Story < ApplicationRecord
     notifications.create(title: titl, body: bodi, creator_id: user_id)
   end
 
-  def build_content
-    titl = Setting.notification_options['story_notification_title'].gsub(/\{title\}/, title)
-    bodi = Setting.notification_options['story_notification_body'].gsub(/\{title\}/, title)
-
-    { notification: { title: titl, body: bodi }, data: {story: StorySerializer.new(self).to_json} }
-  end
-
   def self.filter(params)
     relation = all
     relation = relation.where(status: params[:status]) if params[:status].present?
