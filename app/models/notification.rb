@@ -4,7 +4,7 @@ class Notification < ApplicationRecord
   belongs_to :creator, class_name: 'User'
   belongs_to :story, optional: true
 
-  validates :title, presence: true
+  validates :body, presence: true
 
   before_create :set_uuid
   after_commit :push_notification, on: :create
