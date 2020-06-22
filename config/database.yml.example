@@ -1,7 +1,7 @@
 default: &default
   adapter: mysql2
   encoding: utf8
-  pool: <%= ENV.fetch("DB_MAX_CONNECTION_POOL") { 5 } %>
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   username: <%= ENV.fetch('DB_USER') { 'root' } %>
   password: <%= ENV.fetch('DB_PWD') { '' } %>
   host: <%= ENV.fetch('DB_HOST') { 'localhost' } %>
@@ -40,5 +40,3 @@ test:
 production:
   <<: *default
   database: tiger
-  username: root
-  password: <%= ENV['CDC_DATABASE_PASSWORD'] %>

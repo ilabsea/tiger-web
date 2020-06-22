@@ -30,9 +30,9 @@ RUN bundle exec rake assets:precompile RAILS_ENV=production SECRET_KEY_BASE=secr
 ENV RAILS_LOG_TO_STDOUT=true
 ENV RACK_ENV=production
 ENV RAILS_ENV=production
-EXPOSE 80
+EXPOSE 3000
 
 # Add scripts
 COPY docker/database.yml /app/config/database.yml
 
-CMD ["puma", "-e", "production", "-b", "tcp://0.0.0.0:80"]
+CMD ["bundle", "exec", "puma", "-e", "production", "-b", "tcp://0.0.0.0:3000"]
