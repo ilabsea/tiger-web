@@ -87,7 +87,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'dotenv-rails', '~> 2.2.1'
 gem 'active_model_serializers', '~> 0.9.7'
-gem 'carrierwave', '~> 1.0'
+gem 'carrierwave', '~> 1.3'
 gem 'awesome_nested_set', '~> 3.1.4'
 
 # For chart data
