@@ -97,4 +97,4 @@ gem 'axlsx', git: 'https://github.com/randym/axlsx.git', ref: 'c8ac844'
 gem 'axlsx_rails'
 
 gem 'rails-observers', '~> 0.1.5'
-gem 'sidekiq', '~> 5.2.2'
+gem 'sidekiq', '~> 6.4.0'
